@@ -1,0 +1,92 @@
+{
+  "car": {
+    "brand": "BMW",
+    "model": "3 Series",
+    "country": "Germany",
+    "year": "2018",
+    "engines": [
+      {
+        "cylinders": 4,
+        "displacement": 2.5,
+        "horsepower": 320,
+        "hasTurbo": true,
+        "type": "petrol",
+        "pollution": 200,
+        "energyCertificate": "C",
+        "autonomy": 1000
+      }
+    ],
+    "weight": 2000,
+    "doors": 5,
+    "segment": "E",
+    "basePrice": 30000
+  },
+  "cars": [
+    {
+      "brand": "Opel",
+      "model": "Astra",
+      "country": "Germany",
+      "year": "2011",
+      "engines": [
+        {
+          "cylinders": 4,
+          "displacement": 1.7,
+          "horsepower": 120,
+          "hasTurbo": true,
+          "type": "diesel",
+          "pollution": 300,
+          "energyCertificate": "B",
+          "autonomy": 1000
+        }
+      ],
+      "weight": 2000,
+      "doors": 5,
+      "segment": "E",
+      "basePrice": 13000
+    },
+    {
+      "brand": "BMW",
+      "model": "3 Series",
+      "country": "Germany",
+      "year": "2018",
+      "engines": [
+        {
+          "cylinders": 4,
+          "displacement": 2.5,
+          "horsepower": 320,
+          "hasTurbo": true,
+          "type": "petrol",
+          "pollution": 200,
+          "energyCertificate": "C",
+          "autonomy": 1000
+        }
+      ],
+      "weight": 2000,
+      "doors": 5,
+      "segment": "E",
+      "basePrice": 30000
+    },
+    {
+      "brand": "Tesla",
+      "model": "Model S",
+      "country": "USA",
+      "year": "2018",
+      "engines": [
+        {
+          "cylinders": null,
+          "displacement": 568,
+          "horsepower": 772,
+          "hasTurbo": true,
+          "type": "electric",
+          "pollution": 0,
+          "energyCertificate": "0",
+          "autonomy": 500
+        }
+      ],
+      "weight": 2000,
+      "doors": 5,
+      "segment": "E",
+      "basePrice": 70000
+    }
+  ]
+}
