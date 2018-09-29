@@ -1,4 +1,6 @@
-const Gallery = (
+import React from 'react';
+
+const Gallery = () => (
     <div>
 
     </div>

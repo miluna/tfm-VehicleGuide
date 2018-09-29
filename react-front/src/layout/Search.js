@@ -10,4 +10,4 @@ class Search extends Component {
     }
 }
 
-export default Home;
+export default Search;

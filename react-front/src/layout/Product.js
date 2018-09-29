@@ -10,4 +10,4 @@ class Product extends Component {
     }
 }
 
-export default Home;
+export default Product;

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { Switch, Route } from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
+import Footer from './components/Footer';
 import Home from './layout/Home';
 import AdminPanel from './layout/AdminPanel';
 import Product from './layout/Product';
@@ -18,7 +19,12 @@ const routes = (
 class App extends Component {
     render() {
         return (
-            {routes}
+            <React.Fragment>
+                <div className="container is-widescreen is-centered">
+                    {routes}
+                </div>
+                <Footer author="Miguel Angel Luna" year="2018"/>
+            </React.Fragment>
         );
     }
 }
