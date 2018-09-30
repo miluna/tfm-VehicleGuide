@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import Button from '../components/Button';
 import Icon from '../components/Icon';
-import HeroCard from "../components/HeroCard";
+import ProductCard from "../components/ProductCard";
+import mock from "../mocked_data";
 
 class Home extends Component {
     render() {
@@ -11,7 +12,13 @@ class Home extends Component {
                     <Icon iconName="rocket"/>
                     Home
                 </Button>
-                <HeroCard title="Coche to guapo" subtitle="Este coche es un pepino"/>
+                <ProductCard
+                    title={mock.car.year + " " + mock.car.brand + " " + mock.car.model}
+                    subtitle="Este coche es un pepino"
+                    mainImage={mock.car.mainImage}
+                    description={mock.car.description}
+                    engine={mock.car.engines[0]}
+                />
             </div>
         );
     }

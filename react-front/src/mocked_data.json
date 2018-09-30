@@ -3,11 +3,14 @@
     "brand": "BMW",
     "model": "3 Series",
     "country": "Germany",
+    "mainImage": "https://a.ccdn.es/cnet/2017/12/27/34049006/130773497_g.jpg",
+    "images" : [],
+    "description": "LOLOLOLOLOLOLOLOLOL",
     "year": "2018",
     "engines": [
       {
         "cylinders": 4,
-        "displacement": 2.5,
+        "displacement": 3200,
         "horsepower": 320,
         "hasTurbo": true,
         "type": "petrol",
