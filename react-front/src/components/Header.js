@@ -12,7 +12,7 @@ const content = (
     <nav className="nav">
         <div className="navItem left">
             {logo}
-            <h1 className="title">VehicleGuide</h1>
+            <h1 style={{color: "grey"}} className="title">VehicleGuide</h1>
         </div>
         <div className="navItem right">
             {config.navBarButtons.map(e => <NavButton key={e.link + "_" + e.text}

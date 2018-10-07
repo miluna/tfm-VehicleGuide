@@ -23,9 +23,7 @@ class App extends Component {
         return (
             <React.Fragment>
                 <Header/>
-                <div className="container is-widescreen is-centered">
-                    {routes}
-                </div>
+                {routes}
                 <Footer author="Miguel Angel Luna" year="2018"/>
             </React.Fragment>
         );
