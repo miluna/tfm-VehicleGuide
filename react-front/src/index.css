@@ -62,3 +62,47 @@
     font-weight: 400;
     margin-top: 2%;
 }
+
+.logo {
+    width: 5rem;
+    height: 5rem;
+}
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: #3e414e;
+}
+
+.navItem {
+    display: flex;
+    flex-direction: row;
+    margin-right: 4rem;
+}
+
+.left {
+    position: relative;
+    left: 0;
+    margin: auto;
+}
+
+.right {
+    position: relative;
+    right: 0;
+    margin: auto;
+}
+
+.top {
+    position: relative;
+    top: 0;
+    margin: auto;
+}
+
+.centered {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}

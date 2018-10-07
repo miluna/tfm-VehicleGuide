@@ -4,7 +4,7 @@ class AdminPanel extends Component {
     render() {
         return (
             <div>
-
+                Admin
             </div>
         );
     }

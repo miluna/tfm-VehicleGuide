@@ -12,5 +12,22 @@
     "autonomyIcon":"battery-half",
     "weightIcon": "balance-scale",
     "pollutionIcon": "cloud"
-  }
+  },
+  "navBarButtons": [
+    {
+      "link": "/",
+      "icon": "rocket",
+      "text": "Home"
+    },
+    {
+      "link": "/search",
+      "icon": "search",
+      "text": "Search"
+    },
+    {
+      "link": "/compare",
+      "icon": "car",
+      "text": "Compare"
+    }
+  ]
 }
