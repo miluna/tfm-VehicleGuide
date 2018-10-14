@@ -1,31 +1,54 @@
 import React, {Component} from 'react';
-import Button from '../components/Button';
+import Brands from './BrandsTab';
+import Vehicles from './EnginesTab';
+import Engines from './EnginesTab';
+
 
 class AdminPanel extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            tabs: [
+                {
+                    title: "Brands",
+                    content: <Brands/>
+                },
+                {
+                    title: "Vehicles",
+                    content: <Vehicles/>
+                },
+                {
+                    title: "Engines",
+                    content: <Engines/>
+                }
+            ],
+            activeTabIndex: 0
+        }
+    }
+
+    changeTab = (e) => {
+        const text = e.target.innerHTML;
+        const {tabs} = this.state;
+        const selected = tabs.findIndex(e => e.title === text);
+        this.setState({activeTabIndex: selected});
+    };
+
     render() {
+        const {tabs, activeTabIndex} = this.state;
+
         return (
             <div className="container">
                 <h2 className="title">Admin Panel</h2>
-                <div className="card">
-                    <h3 className="subtitle">Add a new brand</h3>
-                    <input className="input admin-input" placeholder="Brand name"/>
-                    <input className="input admin-input" placeholder="Year of birth"/>
-                    <Button text="Send"/>
-                </div>
-                <div className="card">
-                    <h3 className="subtitle">Modify a brand</h3>
-                </div>
-                <div className="card">
-                    <h3 className="subtitle">Add a new vehicle</h3>
-                </div>
-                <div className="card">
-                    <h3 className="subtitle">Modify a vehicle</h3>
-                </div>
-                <div className="card">
-                    <h3 className="subtitle">Add a new engine</h3>
-                </div>
-                <div className="card">
-                    <h3 className="subtitle">Modify an engine</h3>
+
+                <div className="card tab-container">
+                    {tabs.map(e => {
+                        if (tabs[activeTabIndex].title === e.title) {
+                            return <button key={e.title} className="tab-panel tab-active">{e.title}</button>
+                        } else {
+                            return <button key={e.title} className="tab-panel tab-inactive" onClick={this.changeTab}>{e.title}</button>
+                        }
+                    })}
+                    {tabs[activeTabIndex].content}
                 </div>
             </div>
         );
