@@ -3,10 +3,10 @@ import {withRouter} from "react-router-dom";
 import Select from "../components/Select";
 import Slider from "../components/Slider";
 import Video from "../components/Video";
-//import sourceVideo from "../media/videos/home_video.mp4"
+import sourceVideo from "../media/videos/home_video.mp4"
 import Button from "../components/Button";
 
-const sourceVideo = null;
+//const sourceVideo = null;
 class Home extends Component {
     constructor(props) {
         super(props);
