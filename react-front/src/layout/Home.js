@@ -16,30 +16,8 @@ class Home extends Component {
             selectedModel: null,
             selectedMinimumPrice: null,
             selectedMaximumPrice: null,
-            brandOptions: [
-                {
-                    id: null,
-                    text: "All Brands"
-                },
-                {
-                    id: null,
-                    text: "LOL"
-                }
-            ],
-            vehicleOptions: [
-                {
-                    id: null,
-                    text: "All Models"
-                },
-                {
-                    id: null,
-                    text: "Serie 3"
-                },
-                {
-                    id: null,
-                    text: "Cayman"
-                }
-            ]
+            brandOptions: [],
+            vehicleOptions: []
         }
     }
 
@@ -87,6 +65,8 @@ class Home extends Component {
 
     render() {
         const {brandOptions, searchError, vehicleOptions, selectedMinimumPrice, selectedMaximumPrice} = this.state;
+        if (brandOptions.length === 0 || brandOptions[0].text !== "All Brands") brandOptions.unshift({id: null, text: "All Brands"});
+        if (vehicleOptions.length === 0 || vehicleOptions[0].text !== "All Vehicles") vehicleOptions.unshift({id: null, text: "All Vehicles"});
 
         return (
             <div>

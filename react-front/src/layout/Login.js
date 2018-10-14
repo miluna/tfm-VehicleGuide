@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Redirect} from 'react-router-dom';
 import axios from 'axios';
 import Button from '../components/Button';
 import Input from '../components/Input';
@@ -10,7 +11,8 @@ class Login extends Component {
         this.state = {
             email: "",
             password: "",
-            error: ""
+            error: "",
+            logged: false
         }
     }
 
@@ -62,8 +64,7 @@ class Login extends Component {
         //     })
         //     .catch(err => console.log(err));
         sessionStorage.setItem("authentication", "yes");
-        // redirect to admin panel
-        this.props.history.push("/admin");
+        this.setState({logged: true});
     };
 
     validateEmail = (email) => {
@@ -73,6 +74,9 @@ class Login extends Component {
 
 
     render() {
+        // redirect to admin panel
+        if (this.state.logged) return <Redirect to="/admin" push />;
+
         return (
             <div className="container" style={{marginTop: '2rem', marginBottom: '2rem'}}>
                 <div className="form card centered" style={{backgroundColor: '#f5f5f5'}}>

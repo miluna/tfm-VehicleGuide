@@ -4,7 +4,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Footer from './components/Footer';
 import Home from './layout/Home';
 import Login from './layout/Login';
-import AdminPanel from './layout/AdminPanel';
+import AdminPanel from './layout/admin/AdminPanel';
 import Product from './layout/Product';
 import Search from './layout/Search';
 import Header from "./components/Header";

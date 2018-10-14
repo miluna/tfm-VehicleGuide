@@ -6,7 +6,10 @@ const Select = ({className, id, options, style, onChange}) => {
     return (
         <div className={classes} style={style}>
             <select id={id} onChange={onChange}>
-                {options.map(e => <option key={e.id + "_" + e.text}>{e.text}</option>)}
+                {options.map(e => e.id !== undefined ?
+                                <option key={e.id + "_" + e.text} id={e.id}>{e.text}</option> :
+                                <option key={e.text}>{e.text}</option>
+                )}
             </select>
         </div>
     );
