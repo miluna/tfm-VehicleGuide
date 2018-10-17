@@ -1,0 +1,13 @@
+server:
+  port: 5000
+
+spring:
+  application:
+    name: "vehicle-guide"
+
+  datasource:
+    hikari:
+      jdbc-url: ""
+      driver-class-name: ""
+      username: "root"
+      password: "root"
