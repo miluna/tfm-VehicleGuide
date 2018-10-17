@@ -1,7 +1,7 @@
 {
   "car": {
     "brand": "BMW",
-    "model": "3 Series",
+    "name": "3 Series",
     "country": "Germany",
     "mainImage": "https://a.ccdn.es/cnet/2017/12/27/34049006/130773497_g.jpg",
     "images" : [],
@@ -27,7 +27,7 @@
   "cars": [
     {
       "brand": "Opel",
-      "model": "Astra",
+      "name": "Astra",
       "country": "Germany",
       "year": "2011",
       "mainImage": "https://a.ccdn.es/cnet/2017/12/27/34049006/130773497_g.jpg",
@@ -52,7 +52,7 @@
     },
     {
       "brand": "BMW",
-      "model": "3 Series",
+      "name": "3 Series",
       "country": "Germany",
       "year": "2018",
       "mainImage": "https://a.ccdn.es/cnet/2017/12/27/34049006/130773497_g.jpg",
@@ -77,7 +77,7 @@
     },
     {
       "brand": "Tesla",
-      "model": "Model S",
+      "name": "Model S",
       "country": "USA",
       "year": "2018",
       "mainImage": "https://a.ccdn.es/cnet/2017/12/27/34049006/130773497_g.jpg",
