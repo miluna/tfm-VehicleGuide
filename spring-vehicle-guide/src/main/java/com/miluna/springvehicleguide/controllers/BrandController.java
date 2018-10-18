@@ -1,6 +1,7 @@
 package com.miluna.springvehicleguide.controllers;
 
 import com.miluna.springvehicleguide.models.Brand;
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +11,8 @@ import java.util.List;
 
 @RestController(value = "BrandController")
 public class BrandController implements DefaultController {
+
+    private static Logger LOG = Logger.getLogger(BrandController.class);
 
     @Override
     public ResponseEntity createOne(Object o) {

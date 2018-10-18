@@ -1,12 +1,14 @@
 package com.miluna.springvehicleguide.services;
 
 import com.miluna.springvehicleguide.models.Engine;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service(value = "EngineService")
 public class EngineService implements DefaultService {
+
+    private static Logger LOG = Logger.getLogger(EngineService.class);
 
     @Override
     public Engine createOne(Object o) {

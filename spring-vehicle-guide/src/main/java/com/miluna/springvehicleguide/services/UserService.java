@@ -1,12 +1,14 @@
 package com.miluna.springvehicleguide.services;
 
 import com.miluna.springvehicleguide.models.User;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service(value = "UserService")
 public class UserService implements DefaultService {
+
+    private static Logger LOG = Logger.getLogger(UserService.class);
 
     @Override
     public User createOne(Object o) {
