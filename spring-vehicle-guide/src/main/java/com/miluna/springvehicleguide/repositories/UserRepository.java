@@ -1,12 +1,12 @@
 package com.miluna.springvehicleguide.repositories;
 
-import com.miluna.springvehicleguide.models.User;
+import com.miluna.springvehicleguide.entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository(value = "UserRepository")
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    User findByEmailAndPassword(String email, String password);
+    UserEntity findByEmailAndPassword(String email, String password);
 
 }

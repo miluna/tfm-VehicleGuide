@@ -1,10 +1,14 @@
 package com.miluna.springvehicleguide.models;
 
+import com.miluna.springvehicleguide.entities.VehicleEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -30,5 +34,21 @@ public class Vehicle {
     private Character segment;
 
     private Number basePrice;
+
+    public Vehicle(VehicleEntity entity){
+        this.id = entity.getId();
+        this.brand = new Brand(entity.getBrand());
+        this.engines = entity.getEngines()
+                        .stream()
+                        .map(e -> new Engine(e))
+                        .collect(Collectors.toList());
+        this.name = entity.getName();
+        this.description = entity.getDescription();
+        this.year = entity.getYear();
+        this.weight = entity.getWeight();
+        this.doors = entity.getDoors();
+        this.segment = entity.getSegment();
+        this.basePrice = entity.getBasePrice();
+    }
 
 }

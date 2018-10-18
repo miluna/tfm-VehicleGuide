@@ -1,6 +1,6 @@
 package com.miluna.springvehicleguide.models;
 
-
+import com.miluna.springvehicleguide.entities.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,8 +14,15 @@ public class User {
 
     private String email;
 
-    private transient String password;
+    private String password;
 
     private Role role;
+
+    public User(UserEntity entity){
+        this.id = entity.getId();
+        this.email = entity.getEmail();
+        this.password = null;
+        this.role = new Role(entity.getRole());
+    }
 
 }
