@@ -6,7 +6,7 @@ const EngineTag = ({ tagClass, iconName, text, id }) => {
         <div className={tagClass} id={id}>
             <Icon iconName={iconName}/>
             <p>{text}</p>
-    </div>
+        </div>
     );
 };
 

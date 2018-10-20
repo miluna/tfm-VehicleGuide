@@ -2,7 +2,7 @@ import React from 'react';
 import EngineTag from '../components/EngineTag';
 import config from '../config';
 
-const EngineInfo = ({ info }) => {
+const EngineInfo = ({ info, className }) => {
 
     // engine properties
     const cylinders = info["cylinders"] || 0;
@@ -79,7 +79,7 @@ const EngineInfo = ({ info }) => {
     const content = parameters.map(p => <EngineTag key={p.iconName} iconName={p.iconName} text={p.text} tagClass={tagClass}/>);
     // return
     return (
-        <div className="product-information-engine">
+        <div className={className}>
             {content}
         </div>
     );

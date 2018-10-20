@@ -3,6 +3,7 @@ import {Redirect} from 'react-router-dom';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import {login} from "../services/Login";
+import {withRouter} from "react-router";
 
 class Login extends Component {
     constructor(props) {
@@ -96,4 +97,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);

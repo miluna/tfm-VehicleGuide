@@ -1,0 +1,69 @@
+.card {
+    box-shadow: 0.3rem 0.3rem 1rem #b1b1b1;
+    padding: 2%;
+    margin-top: 2rem;
+    opacity: 0.85;
+    transition: 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0rem 0rem 1rem 0.3rem #919191;
+    opacity: 1;
+    transform-origin: center;
+    transform: scale(0.99);
+}
+
+.product-container {
+    display: grid;
+    grid-template-columns: 40% auto;
+}
+
+.tags-container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+.main-image {
+    overflow: hidden;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-top: 7%;
+}
+
+.product-engine-selector {
+    margin-top: 3%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-information {
+    margin: 1.3% 0 0 5%;
+}
+
+.product-information h1 {
+    font-size: 3rem;
+}
+
+.product-information h2 {
+    font-size: 2.2rem;
+}
+
+.vehicle-tag {
+    margin-left: 10%;
+    margin-right: 10%;
+    background-color: #e6e6e6;
+    min-width: 21rem;
+    border-radius: 4rem;
+    margin-top: 0.25rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.vehicle-tag p {
+    font-weight: 400;
+    margin-top: 2%;
+}
