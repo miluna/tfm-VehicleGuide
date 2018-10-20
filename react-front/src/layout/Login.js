@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
-import axios from 'axios';
 import Button from '../components/Button';
 import Input from '../components/Input';
-import config from '../config';
+import {login} from "../services/Login";
 
 class Login extends Component {
     constructor(props) {
@@ -29,42 +28,36 @@ class Login extends Component {
     };
 
     sendCredentials = () => {
+        if (this.validateParameters()) {
+            // send credentials
+            let isLoggedin = login(this.state.email, this.state.password);
+            if (isLoggedin.status === "OK") this.setState({logged: true});
+            else this.setState({error: isLoggedin.error});
+        }
+    };
+
+    validateParameters = () => {
         const {email, password} = this.state;
 
         // validate parameters
         if (email === "") {
             this.setState({error: "Email field empty"});
-            return;
+            return false;
         }
         if (!this.validateEmail(email)){
             this.setState({error: "Email format incorrect"});
-            return;
+            return false;
         }
         if (password === "") {
             this.setState({error: "Password field empty"});
-            return;
+            return false;
         }
         if (password.length < 6) {
             this.setState({error: "Password should be more than 6 characters"});
-            return;
+            return false;
         }
 
-        // send credentials
-        // axios.post(`${config.REST_BASE_URL}/login`, {email: email, password: password})
-        //     .then(res => {
-        //         if (res.status !== 200) {
-        //             this.setState({error: "Email or Password incorrect"});
-        //             return;
-        //         }
-        //         // save session
-        //         sessionStorage.setItem("userId", res.data.userId);
-        //         sessionStorage.setItem("authentication", "yes");
-        //         // redirect to admin panel
-        //         this.props.history.push("/admin");
-        //     })
-        //     .catch(err => console.log(err));
-        sessionStorage.setItem("authentication", "yes");
-        this.setState({logged: true});
+        return true;
     };
 
     validateEmail = (email) => {

@@ -8,6 +8,7 @@ import AdminPanel from './layout/admin/AdminPanel';
 import Product from './layout/Product';
 import Search from './layout/Search';
 import Header from "./components/Header";
+import {isUserAdmin} from "./services/Login";
 
 
 const routes = (
@@ -17,7 +18,7 @@ const routes = (
         <Route exact path="/search" component={Search}/>
         <Route exact path="/compare" component={Search}/>
         <Route exact path="/login" component={Login}/>
-        <ProtectedRoute isAuthenticated={sessionStorage.getItem("authentication") === "yes"} exact path="/admin" component={AdminPanel}/>
+        <ProtectedRoute isAuthenticated={isUserAdmin()} exact path="/admin" component={AdminPanel}/>
     </Switch>
 );
 
