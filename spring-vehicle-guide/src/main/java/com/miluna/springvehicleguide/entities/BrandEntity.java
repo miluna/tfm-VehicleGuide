@@ -1,5 +1,6 @@
 package com.miluna.springvehicleguide.entities;
 
+import com.google.gson.Gson;
 import com.miluna.springvehicleguide.models.Brand;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,6 +34,11 @@ public class BrandEntity {
         setName(brand.getName());
         setYear(brand.getYear());
         setCountry(brand.getCountry());
+    }
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.miluna.springvehicleguide.models;
 
+import com.google.gson.Gson;
 import com.miluna.springvehicleguide.entities.EngineEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,6 +39,11 @@ public class Engine {
         this.pollution = entity.getPollution();
         this.energyCertificate = entity.getEnergyCertificate();
         this.autonomy = entity.getAutonomy();
+    }
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
     }
 
 }

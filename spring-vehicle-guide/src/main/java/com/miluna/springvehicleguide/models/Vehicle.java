@@ -1,5 +1,6 @@
 package com.miluna.springvehicleguide.models;
 
+import com.google.gson.Gson;
 import com.miluna.springvehicleguide.entities.VehicleEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -47,6 +48,11 @@ public class Vehicle {
         this.doors = entity.getDoors();
         this.segment = entity.getSegment();
         this.basePrice = entity.getBasePrice();
+    }
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
     }
 
 }

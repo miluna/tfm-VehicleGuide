@@ -1,5 +1,6 @@
 package com.miluna.springvehicleguide.entities;
 
+import com.google.gson.Gson;
 import com.miluna.springvehicleguide.models.Engine;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -76,4 +77,8 @@ public class EngineEntity {
         else this.autonomy = autonomy.longValue();
     }
 
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
+    }
 }

@@ -1,5 +1,6 @@
 package com.miluna.springvehicleguide.entities;
 
+import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,4 +27,9 @@ public class UserEntity {
     @Column(name = "role_id")
     @OneToOne(targetEntity = RoleEntity.class, mappedBy = "roles")
     private RoleEntity role;
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
+    }
 }

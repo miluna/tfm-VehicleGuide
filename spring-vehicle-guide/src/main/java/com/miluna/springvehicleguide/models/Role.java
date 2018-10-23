@@ -1,5 +1,6 @@
 package com.miluna.springvehicleguide.models;
 
+import com.google.gson.Gson;
 import com.miluna.springvehicleguide.entities.RoleEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,4 +29,8 @@ public class Role {
         this.canDelete = entity.getCanDelete();
     }
 
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
+    }
 }

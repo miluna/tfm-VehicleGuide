@@ -1,5 +1,6 @@
 package com.miluna.springvehicleguide.entities;
 
+import com.google.gson.Gson;
 import com.miluna.springvehicleguide.models.Vehicle;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -88,4 +89,8 @@ public class VehicleEntity {
         else this.basePrice = basePrice.doubleValue();
     }
 
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
+    }
 }

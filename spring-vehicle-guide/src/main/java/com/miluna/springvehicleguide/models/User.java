@@ -1,5 +1,6 @@
 package com.miluna.springvehicleguide.models;
 
+import com.google.gson.Gson;
 import com.miluna.springvehicleguide.entities.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,4 +26,8 @@ public class User {
         this.role = new Role(entity.getRole());
     }
 
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
+    }
 }
