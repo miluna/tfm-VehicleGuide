@@ -4,13 +4,11 @@ import com.google.gson.Gson;
 import com.miluna.springvehicleguide.models.Brand;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "brands")
 public class BrandEntity {
@@ -28,6 +26,8 @@ public class BrandEntity {
 
     @Column(name = "country")
     private String country;
+
+    public BrandEntity(){}
 
     public BrandEntity(Brand brand){
         setId(brand.getId());

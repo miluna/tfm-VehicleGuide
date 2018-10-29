@@ -4,12 +4,10 @@ import com.google.gson.Gson;
 import com.miluna.springvehicleguide.entities.BrandEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Brand {
 
     private Long id;
@@ -19,6 +17,8 @@ public class Brand {
     private Date year;
 
     private String country;
+
+    public Brand(){}
 
     public Brand(BrandEntity entity){
         this.id = entity.getId();

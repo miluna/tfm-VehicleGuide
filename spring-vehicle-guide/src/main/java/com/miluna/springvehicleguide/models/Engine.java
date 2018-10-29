@@ -4,11 +4,9 @@ import com.google.gson.Gson;
 import com.miluna.springvehicleguide.entities.EngineEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Engine {
 
     private Long id;
@@ -28,6 +26,8 @@ public class Engine {
     private Character energyCertificate;
 
     private Number autonomy;
+
+    public Engine(){}
 
     public Engine(EngineEntity entity){
         this.id = entity.getId();

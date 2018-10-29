@@ -4,11 +4,9 @@ import com.google.gson.Gson;
 import com.miluna.springvehicleguide.entities.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class User {
 
     private Long id;
@@ -20,6 +18,8 @@ public class User {
     private String password2;
 
     private String role;
+
+    public User(){}
 
     public User(UserEntity entity){
         this.id = entity.getId();

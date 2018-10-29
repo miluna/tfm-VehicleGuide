@@ -4,13 +4,11 @@ import com.google.gson.Gson;
 import com.miluna.springvehicleguide.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class UserEntity {
@@ -28,6 +26,8 @@ public class UserEntity {
 
     @Column(name = "role")
     private String role;
+
+    public UserEntity(){}
 
     public UserEntity(User u) throws Exception{
         if (!u.getPassword().equals(u.getPassword2())) {

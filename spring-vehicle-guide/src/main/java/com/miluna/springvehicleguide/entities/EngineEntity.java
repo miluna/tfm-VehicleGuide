@@ -9,7 +9,6 @@ import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "engines")
 public class EngineEntity {
@@ -42,6 +41,8 @@ public class EngineEntity {
 
     @Column(name = "autonomy")
     private Number autonomy;
+
+    public EngineEntity(){}
 
     public EngineEntity(Engine engine){
         setId(engine.getId());

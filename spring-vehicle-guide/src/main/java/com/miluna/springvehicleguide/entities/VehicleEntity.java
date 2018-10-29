@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.miluna.springvehicleguide.models.Vehicle;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "vehicles")
 public class VehicleEntity {
@@ -50,6 +48,8 @@ public class VehicleEntity {
 
     @Column(name = "basePrice")
     private Number basePrice;
+
+    public VehicleEntity(){}
 
     public VehicleEntity(Vehicle dto){
         setId(dto.getId());
