@@ -11,7 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "brands")
-public class BrandEntity {
+public class BrandEntity implements UpdateableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,4 +41,12 @@ public class BrandEntity {
         return new Gson().toJson(this);
     }
 
+    @Override
+    public void updateProperties(Object newEntity) {
+        BrandEntity target = (BrandEntity) newEntity;
+
+        this.name = target.getName();
+        this.year = target.getYear();
+        this.country = target.getCountry();
+    }
 }

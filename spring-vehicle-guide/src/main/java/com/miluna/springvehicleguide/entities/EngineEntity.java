@@ -4,14 +4,13 @@ import com.google.gson.Gson;
 import com.miluna.springvehicleguide.models.Engine;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
 @Entity
 @Table(name = "engines")
-public class EngineEntity {
+public class EngineEntity implements UpdateableEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -81,5 +80,19 @@ public class EngineEntity {
     @Override
     public String toString() {
         return new Gson().toJson(this);
+    }
+
+    @Override
+    public void updateProperties(Object newEntity) {
+        EngineEntity target = (EngineEntity) newEntity;
+
+        this.setCylinders(target.getCylinders());
+        this.setDisplacement(target.getDisplacement());
+        this.setHorsepower(target.getHorsepower());
+        this.setAutonomy(target.getAutonomy());
+        this.hasTurbo = target.getHasTurbo();
+        this.type = target.getType();
+        this.pollution = target.getPollution();
+        this.energyCertificate = target.getEnergyCertificate();
     }
 }

@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class UserEntity {
+public class UserEntity implements UpdateableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,5 +42,14 @@ public class UserEntity {
     @Override
     public String toString() {
         return new Gson().toJson(this);
+    }
+
+    @Override
+    public void updateProperties(Object newEntity) {
+        UserEntity target = (UserEntity) newEntity;
+
+        this.email = target.getEmail();
+        this.password = new BCryptPasswordEncoder().encode(target.getPassword());
+        this.role = target.getRole();
     }
 }

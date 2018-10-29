@@ -30,7 +30,9 @@ public class UserController implements DefaultController {
     @PostMapping(value = "/users")
     @Override
     public ResponseEntity createOne(@RequestBody Object o) {
-        return new ResponseEntity<>(service.createOne(o), HttpStatus.OK);
+        Object result = service.createOne(o);
+        if (result instanceof Error) return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        else return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping(value = "/users/{id}")
@@ -44,7 +46,9 @@ public class UserController implements DefaultController {
     @PutMapping(value = "/users/{id}")
     @Override
     public ResponseEntity updateOne(@PathVariable Long id, @RequestBody Object o) {
-        return new ResponseEntity<>(service.updateOne(id, o), HttpStatus.OK);
+        User result = service.updateOne(id, o);
+        if (result == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/users/{id}")

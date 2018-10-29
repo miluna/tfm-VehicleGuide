@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Entity
 @Table(name = "vehicles")
-public class VehicleEntity {
+public class VehicleEntity implements UpdateableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -87,6 +87,20 @@ public class VehicleEntity {
     public void setBasePrice(Number basePrice){
         if (basePrice.doubleValue() < 0) this.basePrice = 0;
         else this.basePrice = basePrice.doubleValue();
+    }
+
+    @Override
+    public void updateProperties(Object newEntity) {
+        VehicleEntity target = (VehicleEntity) newEntity;
+
+        this.name = target.getName();
+        this.description = target.getDescription();
+        this.brand = target.getBrand();
+        this.segment = target.getSegment();
+        this.setYear(target.getYear());
+        this.setWeight(target.getWeight());
+        this.setDoors(target.getDoors());
+        this.setBasePrice(target.getBasePrice());
     }
 
     @Override
