@@ -1,9 +1,11 @@
 package com.miluna.springvehicleguide.entities;
 
 import com.google.gson.Gson;
+import com.miluna.springvehicleguide.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.persistence.*;
 
 @Data
@@ -24,9 +26,18 @@ public class UserEntity {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "role_id")
-    @OneToOne(targetEntity = RoleEntity.class, mappedBy = "roles")
-    private RoleEntity role;
+    @Column(name = "role")
+    private String role;
+
+    public UserEntity(User u) throws Exception{
+        if (!u.getPassword().equals(u.getPassword2())) {
+            throw new Exception("Password fields are not equal");
+        }else {
+            this.email = u.getEmail();
+            this.password = new BCryptPasswordEncoder().encode(u.getPassword());
+            this.role = u.getRole();
+        }
+    }
 
     @Override
     public String toString() {

@@ -17,13 +17,14 @@ public class User {
 
     private String password;
 
-    private Role role;
+    private String password2;
+
+    private String role;
 
     public User(UserEntity entity){
         this.id = entity.getId();
         this.email = entity.getEmail();
-        this.password = null;
-        this.role = new Role(entity.getRole());
+        this.role = entity.getRole();
     }
 
     @Override

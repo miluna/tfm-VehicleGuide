@@ -1,38 +1,58 @@
 package com.miluna.springvehicleguide.controllers;
 
 import com.miluna.springvehicleguide.models.User;
+import com.miluna.springvehicleguide.services.UserService;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @RestController(value = "UserController")
 public class UserController implements DefaultController {
 
-    @Override
-    public ResponseEntity createOne(Object o) {
-        return new ResponseEntity<User>(new User(), HttpStatus.OK);
+    private static Logger LOG = Logger.getLogger(UserController.class);
+
+    private final UserService service;
+
+    @Autowired
+    private UserController(@Qualifier(value = "UserService") UserService service){
+        this.service = service;
     }
 
+    @GetMapping(value = "/users")
     @Override
-    public ResponseEntity getOne(Long id) {
-        return new ResponseEntity<User>(new User(), HttpStatus.OK);
+    public ResponseEntity getAll() {
+        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
+    @PostMapping(value = "/users")
     @Override
-    public ResponseEntity updateOne(Long id, Object o) {
-        return new ResponseEntity<User>(new User(), HttpStatus.OK);
+    public ResponseEntity createOne(@RequestBody Object o) {
+        return new ResponseEntity<>(service.createOne(o), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/users/{id}")
     @Override
-    public ResponseEntity deleteOne(Long id) {
-        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+    public ResponseEntity getOne(@PathVariable Long id) {
+        User u = service.findOne(id);
+        if (u == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        else return new ResponseEntity<>(u, HttpStatus.OK);
     }
 
+    @PutMapping(value = "/users/{id}")
     @Override
-    public ResponseEntity<List> getAll() {
-        return new ResponseEntity<List>(new ArrayList(), HttpStatus.OK);
+    public ResponseEntity updateOne(@PathVariable Long id, @RequestBody Object o) {
+        return new ResponseEntity<>(service.updateOne(id, o), HttpStatus.OK);
     }
+
+    @DeleteMapping(value = "/users/{id}")
+    @Override
+    public ResponseEntity deleteOne(@PathVariable Long id) {
+        boolean result = service.deleteOne(id);
+        if (result)return new ResponseEntity<>(HttpStatus.OK);
+        else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
 }

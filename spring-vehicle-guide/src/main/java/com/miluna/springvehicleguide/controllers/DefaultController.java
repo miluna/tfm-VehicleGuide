@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface DefaultController<T> {
 
+    ResponseEntity<List> getAll();
+
     ResponseEntity<T> createOne(T t);
 
     ResponseEntity<T> getOne(Long id);
@@ -13,7 +15,5 @@ public interface DefaultController<T> {
     ResponseEntity<T> updateOne(Long id, T t);
 
     ResponseEntity<T> deleteOne(Long id);
-
-    ResponseEntity<List> getAll();
 
 }

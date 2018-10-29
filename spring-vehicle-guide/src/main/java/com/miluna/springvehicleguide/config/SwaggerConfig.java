@@ -32,11 +32,11 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
 
         return new ApiInfo(
-                "title",
-                "description",
-                "version",
+                "VehicleGuideAPI",
+                "API created as a CRUD interface for the VehicleGuide website",
+                "1.0",
                 "termsOfServiceUrl",
-                new Contact ("name", "http://www.yourdomain.com/", "email@email.com"),
+                new Contact ("Miguel Angel Luna", "http://www.yourdomain.com/", "miluna1994@gmail.com"),
                 "license",
                 "licenseUrl");
     }
