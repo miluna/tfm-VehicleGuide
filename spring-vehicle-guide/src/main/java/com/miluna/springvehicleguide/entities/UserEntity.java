@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.miluna.springvehicleguide.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.persistence.*;
 
@@ -11,14 +12,14 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class UserEntity implements UpdateableEntity {
+public class UserEntity implements UpdateableEntity, GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "password")
@@ -29,13 +30,19 @@ public class UserEntity implements UpdateableEntity {
 
     public UserEntity(){}
 
-    public UserEntity(User u) throws Exception{
-        if (!u.getPassword().equals(u.getPassword2())) {
-            throw new Exception("Password fields are not equal");
-        }else {
+    public UserEntity(User u, boolean isNewUser) throws Exception{
+        if (isNewUser){
+            if (!u.getPassword().equals(u.getPassword2())) {
+                throw new Exception("Password fields are not equal");
+            }else {
+                this.email = u.getEmail();
+                this.password = new BCryptPasswordEncoder().encode(u.getPassword());
+                this.role = u.getRole();
+            }
+        } else {
             this.email = u.getEmail();
-            this.password = new BCryptPasswordEncoder().encode(u.getPassword());
-            this.role = u.getRole();
+            this.password = u.getPassword();
+            this.role = null;
         }
     }
 
@@ -51,5 +58,10 @@ public class UserEntity implements UpdateableEntity {
         this.email = target.getEmail();
         this.password = new BCryptPasswordEncoder().encode(target.getPassword());
         this.role = target.getRole();
+    }
+
+    @Override
+    public String getAuthority() {
+        return this.role;
     }
 }

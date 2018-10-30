@@ -6,8 +6,7 @@ spring:
     name: "vehicle-guide"
 
   datasource:
-    hikari:
-      jdbc-url: ""
-      driver-class-name: ""
-      username: "root"
-      password: "root"
+    url: ""
+    driver-class-name: ""
+    username: "root"
+    password: "root"

@@ -59,4 +59,17 @@ public class UserController implements DefaultController {
         else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @PostMapping(value = "/login")
+    public ResponseEntity login(@RequestBody User logUser){
+        User result = service.login(logUser);
+        if (result == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        else return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity isUserAdmin(@RequestBody Long id) {
+        boolean isAdmin = service.isUserAdmin(id);
+        return new ResponseEntity(isAdmin, HttpStatus.OK);
+    }
+
 }

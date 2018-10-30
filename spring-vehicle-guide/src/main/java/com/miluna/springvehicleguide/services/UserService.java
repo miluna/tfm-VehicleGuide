@@ -6,6 +6,7 @@ import com.miluna.springvehicleguide.repositories.UserRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +28,7 @@ public class UserService implements DefaultService {
     public Object createOne(Object o) {
         User u = (User) o;
         try {
-            UserEntity entity = new UserEntity(u);
+            UserEntity entity = new UserEntity(u, true);
             UserEntity result = repository.save(entity);
             return new User(result);
         } catch (Exception e){
@@ -39,7 +40,13 @@ public class UserService implements DefaultService {
 
     @Override
     public User findOne(Long id) {
-        return null;
+        User result = null;
+
+        Optional<UserEntity> found = repository.findById(id);
+        if (found.isPresent()){
+            result = new User(found.get());
+        }
+        return result;
     }
 
     @Override
@@ -70,5 +77,30 @@ public class UserService implements DefaultService {
                 .map(e -> new User(e))
                 .collect(Collectors.toList());
         return result;
+    }
+
+    public User login(User logUser){
+        User result = null;
+
+        try {
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            UserEntity entity = new UserEntity(logUser, false);
+            UserEntity found = repository.findByEmail(entity.getEmail());
+
+            if (found != null) {
+                boolean passwordMatches = encoder.matches(entity.getPassword(), found.getPassword());
+                if (passwordMatches) result = new User(found);
+            }
+        } catch (Exception e) {
+            LOG.error(e);
+        }
+        return result;
+    }
+
+    public boolean isUserAdmin(Long id) {
+        UserEntity found = repository.findAdminById(id);
+
+        if (found == null) return false;
+        else return true;
     }
 }
