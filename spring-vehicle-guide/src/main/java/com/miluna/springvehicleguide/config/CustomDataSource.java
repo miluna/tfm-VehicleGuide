@@ -1,15 +1,22 @@
 package com.miluna.springvehicleguide.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.PropertySource;
 import javax.sql.DataSource;
 
+@PropertySource("classpath:bootstrap.yml")
 @Configuration
 public class CustomDataSource {
 
+    @Value("${spring.datasource.url}") private String jdbcUrl;
+    @Value("${spring.datasource.hikari.username}") private String username;
+    @Value("${spring.datasource.hikari.password}") private String password;
+    @Value("${spring.datasource.hikari.driver-class-name}") private String driver;
 
     @Bean(value = "DataSource")
     @Primary
@@ -17,6 +24,10 @@ public class CustomDataSource {
     public DataSource dataSource() {
         return DataSourceBuilder
                 .create()
+                .username(username)
+                .password(password)
+                .url(jdbcUrl)
+                .driverClassName(driver)
                 .build();
     }
 }
