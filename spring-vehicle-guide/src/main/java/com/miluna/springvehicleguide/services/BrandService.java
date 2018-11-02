@@ -1,5 +1,6 @@
 package com.miluna.springvehicleguide.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miluna.springvehicleguide.entities.BrandEntity;
 import com.miluna.springvehicleguide.models.Brand;
 import com.miluna.springvehicleguide.repositories.BrandRepository;
@@ -17,15 +18,17 @@ public class BrandService implements DefaultService {
     private static Logger LOG = Logger.getLogger(BrandService.class);
 
     private final BrandRepository repository;
+    private static ObjectMapper mapper;
 
     @Autowired
     private BrandService(@Qualifier(value = "BrandRepository") BrandRepository repository){
         this.repository = repository;
+        mapper = new ObjectMapper();
     }
 
     @Override
     public Brand createOne(Object o) {
-        Brand b = (Brand) o;
+        Brand b = mapper.convertValue(o, Brand.class);
         BrandEntity entity = new BrandEntity(b);
 
         BrandEntity saved = repository.save(entity);
@@ -45,7 +48,7 @@ public class BrandService implements DefaultService {
 
     @Override
     public Brand updateOne(Long id, Object o) {
-        Brand brand = (Brand) o;
+        Brand brand = mapper.convertValue(o, Brand.class);
         BrandEntity target = new BrandEntity(brand);
 
         Optional<BrandEntity> found = repository.findById(id);

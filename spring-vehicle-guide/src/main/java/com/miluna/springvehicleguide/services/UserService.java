@@ -1,5 +1,6 @@
 package com.miluna.springvehicleguide.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miluna.springvehicleguide.entities.UserEntity;
 import com.miluna.springvehicleguide.models.User;
 import com.miluna.springvehicleguide.repositories.UserRepository;
@@ -18,15 +19,17 @@ public class UserService implements DefaultService {
     private static Logger LOG = Logger.getLogger(UserService.class);
 
     private final UserRepository repository;
+    private static ObjectMapper mapper;
 
     @Autowired
     private UserService(@Qualifier(value = "UserRepository") UserRepository repository){
         this.repository = repository;
+        mapper = new ObjectMapper();
     }
 
     @Override
     public Object createOne(Object o) {
-        User u = (User) o;
+        User u = mapper.convertValue(o, User.class);
         try {
             UserEntity entity = new UserEntity(u, true);
             UserEntity result = repository.save(entity);
@@ -51,7 +54,7 @@ public class UserService implements DefaultService {
 
     @Override
     public User updateOne(Long id, Object o) {
-        User u = (User) o;
+        User u = mapper.convertValue(o, User.class);
 
         Optional<UserEntity> found = repository.findById(id);
         if (found.isPresent()){

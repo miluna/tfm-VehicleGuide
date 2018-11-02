@@ -16,16 +16,14 @@ import java.util.stream.Collectors;
 public class VehicleEntity implements UpdateableEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "id")
     @ManyToOne(targetEntity = BrandEntity.class)
     private BrandEntity brand;
 
-    @Column(name = "id")
-    @ManyToMany(targetEntity = EngineEntity.class, mappedBy = "engines")
+    @ManyToMany(targetEntity = EngineEntity.class)
     private List<EngineEntity> engines;
 
     @Column(name = "name")

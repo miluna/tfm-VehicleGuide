@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class UserEntity implements UpdateableEntity, GrantedAuthority {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 

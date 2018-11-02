@@ -21,30 +21,33 @@ public interface VehicleRepository extends JpaRepository<VehicleEntity, Long> {
 
 
     // SEARCH BY BRAND
-    @Query( "SELECT Vehicle " +
-            "FROM Vehicle, Brand " +
-            "WHERE Brand.name=?0")
+    @Query( value = "SELECT A " +
+            "FROM vehicles A, brands B " +
+            "WHERE B.name=?0", nativeQuery = true)
     List<VehicleEntity> findByBrandName(String name);
 
 
     // SEARCH BY ENGINE
-    @Query( "SELECT Vehicle " +
-            "FROM Vehicle, Engine " +
-            "WHERE Vehicle.EngineId=Engine.id " +
-            "AND Engine.displacement >= ?0")
-    List<VehicleEntity> findByDisplacementBiggerThan(Number displacement);
+    @Query( value = "SELECT A " +
+            "FROM vehicles A " +
+            "INNER JOIN engines B " +
+            "ON A.engineId=B.id " +
+            "WHERE B.displacement >= ?0", nativeQuery = true)
+    List<VehicleEntity> findByDisplacementBiggerThan(Integer displacement);
 
-    @Query( "SELECT Vehicle " +
-            "FROM Vehicle, Engine " +
-            "WHERE Vehicle.EngineId=Engine.id " +
-            "AND Engine.displacement <= ?0")
-    List<VehicleEntity> findByDisplacementSmallerThan(Number displacement);
+    @Query( value = "SELECT A " +
+            "FROM vehicles A " +
+            "INNER JOIN engines B " +
+            "ON A.engineId=B.id " +
+            "WHERE B.displacement <= ?0", nativeQuery = true)
+    List<VehicleEntity> findByDisplacementSmallerThan(Integer displacement);
 
 
-    @Query( "SELECT Vehicle " +
-            "FROM Vehicle, Engine " +
-            "WHERE Vehicle.EngineId=Engine.id " +
-            "AND Engine.displacement BETWEEN ?0 AND ?1")
-    List<VehicleEntity> findByDisplacementBetween(Number displacementA, Number displacementB);
+    @Query( value = "SELECT A " +
+            "FROM vehicles A " +
+            "INNER JOIN engines B " +
+            "ON A.engineId=B.id " +
+            "WHERE B.displacement BETWEEN ?0 AND ?1", nativeQuery = true)
+    List<VehicleEntity> findByDisplacementBetween(Integer displacementA, Integer displacementB);
 
 }

@@ -1,5 +1,6 @@
 package com.miluna.springvehicleguide.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miluna.springvehicleguide.entities.EngineEntity;
 import com.miluna.springvehicleguide.models.Engine;
 import com.miluna.springvehicleguide.repositories.EngineRepository;
@@ -17,15 +18,17 @@ public class EngineService implements DefaultService {
     private static Logger LOG = Logger.getLogger(EngineService.class);
 
     private final EngineRepository repository;
+    private static ObjectMapper mapper;
 
     @Autowired
     private EngineService(@Qualifier(value = "EngineRepository") EngineRepository repository){
         this.repository = repository;
+        mapper = new ObjectMapper();
     }
 
     @Override
     public Engine createOne(Object o) {
-        Engine e = (Engine) o;
+        Engine e = mapper.convertValue(o, Engine.class);
         EngineEntity entity = new EngineEntity(e);
         EngineEntity saved = repository.save(entity);
         return new Engine(saved);
@@ -43,8 +46,9 @@ public class EngineService implements DefaultService {
 
     @Override
     public Engine updateOne(Long id, Object o) {
-        Engine e = new Engine((EngineEntity) o);
+        Engine e = mapper.convertValue(o, Engine.class);
         EngineEntity target = new EngineEntity(e);
+
         Optional<EngineEntity> found = repository.findById(id);
         if (found.isPresent()){
             EngineEntity entity = found.get();
