@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                // make sure we use stateless session; session won't be used to store user's state.
+                // we use stateless session; session won't be used to store user's auth state.
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 // handle an authorized attempts
@@ -47,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // must be an admin if trying to modify data
                 .antMatchers(HttpMethod.POST, "/**").hasRole("ADMIN").anyRequest().authenticated()
                 .antMatchers(HttpMethod.PUT, "/**").hasRole("ADMIN").anyRequest().authenticated()
+                .antMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN").anyRequest().authenticated()
                 ;
     }
 
