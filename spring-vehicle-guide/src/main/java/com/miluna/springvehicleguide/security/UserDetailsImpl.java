@@ -5,13 +5,15 @@ import com.miluna.springvehicleguide.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import java.util.Collection;
-import java.util.HashSet;
+
+import java.util.List;
+
 
 @Service(value = "UserDetails")
 public class UserDetailsImpl implements UserDetailsService {
@@ -30,6 +32,9 @@ public class UserDetailsImpl implements UserDetailsService {
 
         if (entity == null) throw new UsernameNotFoundException(email);
 
-        return (UserDetails) entity;
+        List<GrantedAuthority> grantedAuthorities = AuthorityUtils
+                .commaSeparatedStringToAuthorityList("ROLE_" + entity.getRole());
+
+        return new User(entity.getEmail(), entity.getPassword(), grantedAuthorities);
     }
 }

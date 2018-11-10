@@ -12,7 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class UserEntity implements UpdateableEntity, GrantedAuthority {
+public class UserEntity implements UpdateableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,7 @@ public class UserEntity implements UpdateableEntity, GrantedAuthority {
             }else {
                 this.email = u.getEmail();
                 this.password = new BCryptPasswordEncoder().encode(u.getPassword());
-                this.role = u.getRole();
+                this.role = (u.getRole() != null)? u.getRole(): "USER";
             }
         } else {
             this.email = u.getEmail();
@@ -58,10 +58,5 @@ public class UserEntity implements UpdateableEntity, GrantedAuthority {
         this.email = target.getEmail();
         this.password = new BCryptPasswordEncoder().encode(target.getPassword());
         this.role = target.getRole();
-    }
-
-    @Override
-    public String getAuthority() {
-        return this.role;
     }
 }

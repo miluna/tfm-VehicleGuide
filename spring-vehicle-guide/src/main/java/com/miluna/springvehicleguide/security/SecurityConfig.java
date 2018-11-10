@@ -1,69 +1,62 @@
 package com.miluna.springvehicleguide.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
+@Configuration
+@Order(value = 1)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private UserDetailsService userDetailsService;
-    private RestAuthenticationEntryPoint entryPoint;
+    private final JwtConfig jwtConfig;
 
     @Autowired
-    private SecurityConfig(@Qualifier(value = "UserDetails") UserDetailsService userDetailsService,
-                           @Qualifier(value = "EntryPoint") RestAuthenticationEntryPoint entryPoint){
-        this.userDetailsService = userDetailsService;
-        this.entryPoint = entryPoint;
+    public SecurityConfig(@Lazy JwtConfig jwtConfig) {
+        this.jwtConfig = jwtConfig;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(entryPoint)
-                .and()
+                // make sure we use stateless session; session won't be used to store user's state.
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                // handle an authorized attempts
+                .exceptionHandling().authenticationEntryPoint(new RestAuthenticationEntryPoint())
+                .and()
+                // Add a filter to validate the tokens with every request
+                .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
+                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig))
+                // authorization requests config
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers(HttpMethod.GET, "/*").permitAll()
-                .anyRequest().authenticated();
 
-        http.addFilterBefore(securityFilter(), SecurityFilter.class);
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
-    }
-
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+                // allow all to retrieve data, register and log as Admin
+                .antMatchers(HttpMethod.GET, "/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/users").permitAll()
+                .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
+                // must be an admin if trying to modify data
+                .antMatchers(HttpMethod.POST, "/**").hasRole("ADMIN").anyRequest().authenticated()
+                .antMatchers(HttpMethod.PUT, "/**").hasRole("ADMIN").anyRequest().authenticated()
+                ;
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(new BCryptPasswordEncoder());
-        return authProvider;
+    public JwtConfig jwtConfig() {
+        return new JwtConfig();
     }
 
     @Bean
-    public SecurityFilter securityFilter(){
-        return new SecurityFilter();
+    public BCryptPasswordEncoder encoder(){
+        return new BCryptPasswordEncoder();
     }
 }

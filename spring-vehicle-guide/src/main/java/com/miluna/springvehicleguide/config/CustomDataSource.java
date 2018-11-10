@@ -9,14 +9,14 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import javax.sql.DataSource;
 
-@PropertySource("classpath:bootstrap.yml")
+@PropertySource("classpath:application.yml")
 @Configuration
 public class CustomDataSource {
 
     @Value("${spring.datasource.url}") private String jdbcUrl;
     @Value("${spring.datasource.hikari.username}") private String username;
     @Value("${spring.datasource.hikari.password}") private String password;
-    @Value("${spring.datasource.hikari.driver-class-name}") private String driver;
+    @Value("${spring.datasource.driver-class-name}") private String driver;
 
     @Bean(value = "DataSource")
     @Primary

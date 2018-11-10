@@ -63,9 +63,4 @@ public class VehicleController implements DefaultController {
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/vehicles")
-    public ResponseEntity getBrandVehicles(@PathParam("brandId") String brandId) {
-        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
-    }
-
 }
