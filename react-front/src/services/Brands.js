@@ -6,7 +6,7 @@ import {getEnvironment} from "./Utils";
 
 export const getBrand = (id="") => {
     if (getEnvironment() === "dev") return new Promise(mock.brand);
-    else return axios.get(`${config.REST_BASE_URL}/brands?id=${id}`)
+    else return axios.get(`${config.REST_BASE_URL}/brands/${id}`)
 };
 
 export const getAllBrands = () => {
@@ -19,9 +19,9 @@ export const addBrand = (brandObject) => {
 };
 
 export const updateBrand = (id, brandObject) => {
-    return axios.put(`${config.REST_BASE_URL}/brands?id=${id}`, brandObject)
+    return axios.put(`${config.REST_BASE_URL}/brands/${id}`, brandObject)
 };
 
 export const deleteBrand = (id) => {
-    return axios.delete(`${config.REST_BASE_URL}/brands?id=${id}`)
+    return axios.delete(`${config.REST_BASE_URL}/brands/${id}`)
 };

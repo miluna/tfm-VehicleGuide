@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+import java.util.ArrayList;
+
 @RestController(value = "VehicleController")
 public class VehicleController implements DefaultController {
 
@@ -17,7 +20,7 @@ public class VehicleController implements DefaultController {
     private final VehicleService service;
 
     @Autowired
-    private VehicleController(@Qualifier(value = "VehicleService") VehicleService service){
+    private VehicleController(@Qualifier(value = "VehicleService") VehicleService service) {
         this.service = service;
     }
 
@@ -53,6 +56,16 @@ public class VehicleController implements DefaultController {
         boolean result = service.deleteOne(id);
         if (result) return new ResponseEntity<HttpStatus>(HttpStatus.OK);
         else return new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping(value = "/vehicles/{id}/engines")
+    public ResponseEntity getVehicleEngines(@PathVariable Long id) {
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/vehicles")
+    public ResponseEntity getBrandVehicles(@PathParam("brandId") String brandId) {
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
     }
 
 }

@@ -5,6 +5,8 @@ import com.miluna.springvehicleguide.models.Vehicle;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import javax.persistence.*;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -104,5 +106,24 @@ public class VehicleEntity implements UpdateableEntity {
     @Override
     public String toString() {
         return new Gson().toJson(this);
+    }
+
+    public void loadFromResultSet(ResultSet rs) throws Exception {
+        BrandEntity brand = new BrandEntity();
+        List<EngineEntity> engines = new ArrayList<>();
+
+        this.setId(rs.getLong("A.id"));
+        this.setName(rs.getString("A.name"));
+        this.setDescription(rs.getString("A.description"));
+        this.setSegment(rs.getString("A.segment").charAt(0));
+        this.setYear(rs.getDate("A.year"));
+        this.setWeight(rs.getLong("A.weight"));
+        this.setDoors(rs.getLong("A.doors"));
+        this.setBasePrice(rs.getLong("A.basePrice"));
+
+
+
+        this.setBrand(brand);
+        this.setEngines(engines);
     }
 }

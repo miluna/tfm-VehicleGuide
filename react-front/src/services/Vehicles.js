@@ -6,7 +6,7 @@ import {getEnvironment} from "./Utils";
 
 export const getVehicle = (id="") => {
     if (getEnvironment() === "dev") return new Promise(mock.car);
-    else return axios.get(`${config.REST_BASE_URL}/vehicles?id=${id}`)
+    else return axios.get(`${config.REST_BASE_URL}/vehicles/${id}`)
 };
 
 export const getAllVehicles = () => {
@@ -19,17 +19,17 @@ export const addVehicle = (vehicleObject) => {
 };
 
 export const updateVehicle = (id, vehicleObject) => {
-    return axios.put(`${config.REST_BASE_URL}/vehicles?id=${id}`, vehicleObject)
+    return axios.put(`${config.REST_BASE_URL}/vehicles/${id}`, vehicleObject)
 };
 
 export const deleteVehicle = (id) => {
-    return axios.delete(`${config.REST_BASE_URL}/vehicles?id=${id}`)
+    return axios.delete(`${config.REST_BASE_URL}/vehicles/${id}`)
 };
 
 // COMBINED
 export const getVehicleEngines = (vehicleId="") => {
     if (getEnvironment() === "dev") return new Promise(mock.car.engines);
-    else return axios.get(`${config.REST_BASE_URL}/engines?vehicleId=${vehicleId}`)
+    else return axios.get(`${config.REST_BASE_URL}/vehicles/${vehicleId}/engines`)
 };
 
 export const getBrandVehicles = (brandId="") => {

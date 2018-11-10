@@ -2,11 +2,8 @@ package com.miluna.springvehicleguide.repositories;
 
 import com.miluna.springvehicleguide.entities.VehicleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
-import java.util.List;
 
 @Repository(value = "VehicleRepository")
 public interface VehicleRepository extends JpaRepository<VehicleEntity, Long> {
