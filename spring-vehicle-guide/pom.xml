@@ -5,7 +5,7 @@
 
     <groupId>com.miluna</groupId>
     <artifactId>spring-vehicle-guide</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>spring-vehicle-guide</name>
@@ -112,6 +112,7 @@
         </dependency>
     </dependencies>
 
+    <!--
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -123,7 +124,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
+    -->
     <build>
         <plugins>
             <plugin>
@@ -132,6 +133,4 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>
