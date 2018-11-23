@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service(value = "EngineService")
-public class EngineService implements DefaultService {
+public class EngineService implements CrudService {
 
     private static Logger LOG = Logger.getLogger(EngineService.class);
 

@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController(value = "EngineController")
-public class EngineController implements DefaultController{
+public class EngineController implements CrudController {
 
     private static Logger LOG = Logger.getLogger(BrandController.class);
 

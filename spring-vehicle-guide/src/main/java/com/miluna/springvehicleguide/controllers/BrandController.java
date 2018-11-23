@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController(value = "BrandController")
 @Api(value = "Controller designed to add/retrieve/modify brands")
-public class BrandController implements DefaultController {
+public class BrandController implements CrudController {
 
     private static Logger LOG = Logger.getLogger(BrandController.class);
 

@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service(value = "UserService")
-public class UserService implements DefaultService {
+public class UserService implements CrudService {
 
     private static Logger LOG = Logger.getLogger(UserService.class);
 

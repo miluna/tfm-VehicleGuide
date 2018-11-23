@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController(value = "UserController")
-public class UserController implements DefaultController {
+public class UserController implements CrudController {
 
     private static Logger LOG = Logger.getLogger(UserController.class);
 

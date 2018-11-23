@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service(value = "BrandService")
-public class BrandService implements DefaultService {
+public class BrandService implements CrudService {
 
     private static Logger LOG = Logger.getLogger(BrandService.class);
 

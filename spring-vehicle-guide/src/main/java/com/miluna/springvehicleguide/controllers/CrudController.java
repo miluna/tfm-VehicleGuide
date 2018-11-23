@@ -3,7 +3,7 @@ package com.miluna.springvehicleguide.controllers;
 import org.springframework.http.ResponseEntity;
 import java.util.List;
 
-public interface DefaultController<T> {
+public interface CrudController<T> {
 
     ResponseEntity<List> getAll();
 
