@@ -1,16 +1,11 @@
 package com.miluna.springvehicleguide.services;
 
-import com.miluna.springvehicleguide.entities.VehicleEntity;
-import com.miluna.springvehicleguide.models.Vehicle;
+import com.google.gson.Gson;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +13,11 @@ import java.util.List;
 public class SearchService {
 
     private static Logger LOG = Logger.getLogger(SearchService.class);
-    private DataSource dataSource;
+    private JdbcTemplate jdbc;
 
     @Autowired
-    private SearchService(@Qualifier(value = "DataSource") DataSource dataSource){
-        this.dataSource = dataSource;
+    private SearchService(@Qualifier(value = "JdbcTemplate") JdbcTemplate jdbcTemplate){
+        this.jdbc = jdbcTemplate;
     }
 
     public List doSearch(String vehicleName,
@@ -33,17 +28,29 @@ public class SearchService {
                          String orderValue,
                          String order){
 
-        StringBuilder sql = new StringBuilder(
-                "SELECT A.*, B.*, C.*, COUNT(C.id) AS engineCount " +
+        LOG.debug("Making custom search");
+        StringBuilder sql = new StringBuilder();
+
+        // Prepare sql
+        String select = "SELECT A.id, A.name, A.year, A.basePrice, A.segment ";
+        String tables =
                 "FROM vehicles A " +
                 "INNER JOIN brands B " +
                 "ON A.brandId=B.id " +
                 "INNER JOIN engines C " +
-                "ON A.engineId=C.id ");
-
+                "ON A.engineId=C.id ";
         String clauses = getClauses(vehicleName, vehicleType, brand, minPrice, maxPrice, orderValue, order);
+
+        // Append to final string
+        sql.append(select);
+        sql.append(tables);
         sql.append(clauses);
-        List<Vehicle> results = this.getResults(sql.toString());
+
+        LOG.debug("QUERY: ");
+        LOG.debug(sql.toString());
+        List<?> results = jdbc.queryForList(sql.toString());
+        LOG.debug("RESULTS: ");
+        LOG.debug(new Gson().toJson(results));
 
         if (results.size() > 0) return results;
         else return new ArrayList();
@@ -110,25 +117,5 @@ public class SearchService {
         if (orderValue.equals("displacement")) value = "C.displacement";
 
         return value;
-    }
-
-    private List<Vehicle> getResults(String sql){
-        List<Vehicle> results = new ArrayList<>();
-
-        try {
-            Connection conn = this.dataSource.getConnection();
-            PreparedStatement statement = conn.prepareStatement(sql);
-            ResultSet rs = statement.executeQuery();
-
-            while (rs.next()) {
-                VehicleEntity entity = new VehicleEntity();
-                results.add(new Vehicle(entity));
-            }
-
-        } catch (SQLException e) {
-            LOG.error(e);
-        }
-
-        return results;
     }
 }
