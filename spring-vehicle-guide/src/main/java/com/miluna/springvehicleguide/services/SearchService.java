@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service(value = "SearchService")
@@ -32,13 +33,15 @@ public class SearchService {
         StringBuilder sql = new StringBuilder();
 
         // Prepare sql
-        String select = "SELECT A.id, A.name, A.year, A.basePrice, A.segment ";
+        String select = "SELECT A.id, A.name, A.year, A.base_price as basePrice, A.segment ";
         String tables =
                 "FROM vehicles A " +
                 "INNER JOIN brands B " +
-                "ON A.brandId=B.id " +
-                "INNER JOIN engines C " +
-                "ON A.engineId=C.id ";
+                "ON A.brand_id=B.id " +
+                "INNER JOIN vehicles_engines C  " +
+                "ON A.id=C.vehicle_entity_id " +
+                "LEFT JOIN engines D " +
+                "ON D.id=C.engines_id ";
         String clauses = getClauses(vehicleName, vehicleType, brand, minPrice, maxPrice, orderValue, order);
 
         // Append to final string
@@ -73,9 +76,9 @@ public class SearchService {
 
         if (isValidParameter(vehicleType)) {
             if (moreThanOneParameter){
-                clauses.append(String.format("AND LOWER(C.type) = '%s' ", vehicleType.toLowerCase()));
+                clauses.append(String.format("AND LOWER(D.type) = '%s' ", vehicleType.toLowerCase()));
             } else {
-                clauses.append(String.format("WHERE LOWER(C.type) = '%s' ", vehicleType.toLowerCase()));
+                clauses.append(String.format("WHERE LOWER(D.type) = '%s' ", vehicleType.toLowerCase()));
                 moreThanOneParameter = true;
             }
         }
@@ -91,14 +94,19 @@ public class SearchService {
 
         if (isValidParameter(minPrice) && isValidParameter(maxPrice)){
             if (moreThanOneParameter) {
-                clauses.append(String.format("AND A.basePrice BETWEEN %s AND %s ", minPrice, maxPrice));
+                clauses.append(String.format("AND A.base_price BETWEEN %s AND %s ", minPrice, maxPrice));
             } else {
-                clauses.append(String.format("WHERE A.basePrice BETWEEN %s AND %s ", minPrice, maxPrice));
+                clauses.append(String.format("WHERE A.base_price BETWEEN %s AND %s ", minPrice, maxPrice));
             }
         }
 
         if (isValidParameter(orderValue) && isValidParameter(order)){
-            clauses.append(String.format("ORDER BY %s %s", this.getOrderValue(orderValue), order));
+            String realOrderValue = this.getOrderValue(orderValue);
+            boolean contains = Arrays.asList("ASC", "DESC").contains(order);
+
+            if (isValidParameter(realOrderValue) && contains) {
+                clauses.append(String.format("ORDER BY %s %s", this.getOrderValue(orderValue), order));
+            }
         }
 
         return clauses.toString();
@@ -114,7 +122,7 @@ public class SearchService {
         if (orderValue.equals("name")) value = "A.name";
         if (orderValue.equals("year")) value = "A.year";
         if (orderValue.equals("brand")) value = "B.name";
-        if (orderValue.equals("displacement")) value = "C.displacement";
+        if (orderValue.equals("displacement")) value = "D.displacement";
 
         return value;
     }

@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.miluna.springvehicleguide.entities.VehicleEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,15 +21,15 @@ public class Vehicle {
 
     private String description;
 
-    private Date year;
+    private Integer year;
 
-    private Number weight;
+    private Integer weight;
 
-    private Number doors;
+    private Integer doors;
 
     private Character segment;
 
-    private Number basePrice;
+    private Long basePrice;
 
     public Vehicle(){}
 

@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.miluna.springvehicleguide.entities.BrandEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -14,7 +13,7 @@ public class Brand {
 
     private String name;
 
-    private Date year;
+    private Integer year;
 
     private String country;
 

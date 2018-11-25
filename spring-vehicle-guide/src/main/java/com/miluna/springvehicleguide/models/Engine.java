@@ -11,21 +11,21 @@ public class Engine {
 
     private Long id;
 
-    private Number cylinders;
+    private Integer cylinders;
 
-    private Number displacement;
+    private Integer displacement;
 
-    private Number horsepower;
+    private Integer horsepower;
 
     private Boolean hasTurbo;
 
     private String type;
 
-    private Number pollution;
+    private Integer pollution;
 
     private Character energyCertificate;
 
-    private Number autonomy;
+    private Integer autonomy;
 
     public Engine(){}
 

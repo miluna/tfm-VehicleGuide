@@ -5,9 +5,6 @@ import com.miluna.springvehicleguide.models.Vehicle;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import javax.persistence.*;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,19 +32,19 @@ public class VehicleEntity implements UpdateableEntity {
     private String description;
 
     @Column(name = "year")
-    private Date year;
+    private Integer year;
 
     @Column(name = "weight")
-    private Number weight;
+    private Integer weight;
 
     @Column(name = "doors")
-    private Number doors;
+    private Integer doors;
 
     @Column(name = "segment")
     private Character segment;
 
     @Column(name = "basePrice")
-    private Number basePrice;
+    private Long basePrice;
 
     public VehicleEntity(){}
 
@@ -69,24 +66,19 @@ public class VehicleEntity implements UpdateableEntity {
 
     // VALIDATION
 
-    public void setYear(Date year){
-        if (this.brand.getYear().getTime() < year.getTime()) this.year = null;
-        else this.year = year;
+    public void setWeight(Integer weight){
+        if (weight == null || weight.longValue() < 0) this.weight = 0;
+        else this.weight = weight;
     }
 
-    public void setWeight(Number weight){
-        if (weight.longValue() < 0) this.weight = 0;
-        else this.weight = weight.longValue();
+    public void setDoors(Integer doors){
+        if (doors == null || doors < 0) this.doors = 0;
+        else this.doors = doors;
     }
 
-    public void setDoors(Number doors){
-        if (doors.intValue() < 0) this.doors = 0;
-        else this.doors = doors.intValue();
-    }
-
-    public void setBasePrice(Number basePrice){
-        if (basePrice.doubleValue() < 0) this.basePrice = 0;
-        else this.basePrice = basePrice.doubleValue();
+    public void setBasePrice(Long basePrice){
+        if (basePrice == null || basePrice < 0) this.basePrice = 0L;
+        else this.basePrice = basePrice;
     }
 
     @Override
@@ -106,24 +98,5 @@ public class VehicleEntity implements UpdateableEntity {
     @Override
     public String toString() {
         return new Gson().toJson(this);
-    }
-
-    public void loadFromResultSet(ResultSet rs) throws Exception {
-        BrandEntity brand = new BrandEntity();
-        List<EngineEntity> engines = new ArrayList<>();
-
-        this.setId(rs.getLong("A.id"));
-        this.setName(rs.getString("A.name"));
-        this.setDescription(rs.getString("A.description"));
-        this.setSegment(rs.getString("A.segment").charAt(0));
-        this.setYear(rs.getDate("A.year"));
-        this.setWeight(rs.getLong("A.weight"));
-        this.setDoors(rs.getLong("A.doors"));
-        this.setBasePrice(rs.getLong("A.basePrice"));
-
-
-
-        this.setBrand(brand);
-        this.setEngines(engines);
     }
 }
