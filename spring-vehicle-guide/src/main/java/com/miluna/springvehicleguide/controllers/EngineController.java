@@ -36,7 +36,7 @@ public class EngineController implements CrudController {
     @GetMapping(value = "/engines/{id}")
     @Override
     public ResponseEntity getOne(@PathVariable Long id) {
-        Engine e = service.findOne(id);
+        Engine e = (id != null) ? service.findOne(id) : null;
         if (e == null) return new ResponseEntity(HttpStatus.NOT_FOUND);
         else return new ResponseEntity<>(e, HttpStatus.OK);
     }
@@ -44,7 +44,9 @@ public class EngineController implements CrudController {
     @PutMapping(value = "/engines/{id}")
     @Override
     public ResponseEntity updateOne(@PathVariable Long id, @RequestBody Object o) {
-        return new ResponseEntity<>(service.updateOne(id, o), HttpStatus.OK);
+        Engine e = (id != null) ? service.updateOne(id, o) : null;
+        if (e == null) return new ResponseEntity(HttpStatus.NOT_FOUND);
+        else return new ResponseEntity<>(e, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/engines/{id}")

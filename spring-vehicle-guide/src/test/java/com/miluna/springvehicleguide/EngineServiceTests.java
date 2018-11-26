@@ -1,6 +1,16 @@
 package com.miluna.springvehicleguide;
 
+import org.junit.Before;
+import org.mockito.MockitoAnnotations;
+import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
+
 public class EngineServiceTests implements CrudTests {
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Override
     public void getOneTest() {

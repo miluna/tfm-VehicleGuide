@@ -44,7 +44,7 @@ public class BrandController implements CrudController {
     @ApiOperation(value = "Get one brand", response = Brand.class)
     @Override
     public ResponseEntity getOne(@PathVariable Long id) {
-        Brand b = service.findOne(id);
+        Brand b = (id != null) ? service.findOne(id) : null;
         if (b == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else return new ResponseEntity<>(b, HttpStatus.OK);
     }
@@ -53,7 +53,9 @@ public class BrandController implements CrudController {
     @ApiOperation(value = "Update one brand", response = Brand.class)
     @Override
     public ResponseEntity updateOne(@PathVariable Long id, @RequestBody Object o) {
-        return new ResponseEntity<>(service.updateOne(id, o), HttpStatus.OK);
+        Brand b = (id != null) ? service.updateOne(id, o) : null;
+        if (b == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        else return new ResponseEntity<>(b, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/brands/{id}")

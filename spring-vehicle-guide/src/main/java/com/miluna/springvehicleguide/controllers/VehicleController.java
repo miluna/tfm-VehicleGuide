@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 
 @RestController(value = "VehicleController")
@@ -38,7 +37,7 @@ public class VehicleController implements CrudController {
     @GetMapping(value = "/vehicles/{id}")
     @Override
     public ResponseEntity getOne(@PathVariable Long id) {
-        Vehicle v = service.findOne(id);
+        Vehicle v = (id != null) ? service.findOne(id) : null;
         if (v == null) return new ResponseEntity(HttpStatus.NOT_FOUND);
         else return new ResponseEntity<>(v, HttpStatus.OK);
     }
@@ -46,7 +45,9 @@ public class VehicleController implements CrudController {
     @PutMapping(value = "/vehicles/{id}")
     @Override
     public ResponseEntity updateOne(@PathVariable Long id, @RequestBody Object o) {
-        return new ResponseEntity<>(service.updateOne(id, o), HttpStatus.OK);
+        Vehicle v = (id != null) ? service.updateOne(id, o) : null;
+        if (v == null) return new ResponseEntity(HttpStatus.NOT_FOUND);
+        else return new ResponseEntity<>(v, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/vehicles/{id}")
