@@ -55,8 +55,7 @@ public class SearchService {
         LOG.debug("RESULTS: ");
         LOG.debug(new Gson().toJson(results));
 
-        if (results.size() > 0) return results;
-        else return new ArrayList();
+        return results;
     }
 
     private String getClauses(String vehicleName,

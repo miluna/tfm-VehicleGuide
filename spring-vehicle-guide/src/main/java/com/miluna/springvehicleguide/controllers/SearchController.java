@@ -33,8 +33,6 @@ public class SearchController {
                                    @PathParam("order") String order) {
 
         List<?> results = service.doSearch(vehicleName, vehicleType, brand, minPrice, maxPrice, orderValue, order);
-
-        if (results.size() != 0) return new ResponseEntity<>(results, HttpStatus.OK);
-        else return new ResponseEntity<>(results, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(results, HttpStatus.OK);
     }
 }
