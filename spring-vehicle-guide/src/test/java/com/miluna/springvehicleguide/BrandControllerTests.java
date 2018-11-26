@@ -9,10 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import java.util.Arrays;
 import java.util.List;
-
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 

@@ -42,20 +42,17 @@ public class VehicleService implements CrudService {
         Brand brand = this.getBrandFromVehicleJson(v);
         List<Engine> engines = this.getEnginesFromVehicleJson(v);
 
-        if (brand != null && engines.size() > 0) {
-            v.setBrand(brand);
-            v.setEngines(engines);
-            VehicleEntity entity = new VehicleEntity(v);
-            VehicleEntity saved = repository.save(entity);
-            v = new Vehicle(saved);
-            return v;
-        } else {
-            return null;
-        }
+        v.setBrand(brand);
+        v.setEngines(engines);
+        VehicleEntity entity = new VehicleEntity(v);
+        VehicleEntity saved = repository.save(entity);
+        v = new Vehicle(saved);
+        return v;
     }
 
     @Override
     public Vehicle findOne(Long id) {
+        if (id == null) return null;
         Optional<VehicleEntity> found = repository.findById(id);
         if (found.isPresent()) return new Vehicle(found.get());
         else return null;
@@ -63,6 +60,7 @@ public class VehicleService implements CrudService {
 
     @Override
     public Vehicle updateOne(Long id, Object o) {
+        if (id == null) return null;
         Vehicle v = mapper.convertValue(o, Vehicle.class);
         // retrieve all info from mapped object
         Brand brand = this.getBrandFromVehicleJson(v);
@@ -99,8 +97,8 @@ public class VehicleService implements CrudService {
         return result;
     }
 
-    private Brand getBrandFromVehicleJson(Vehicle v) {
-        Brand brand = null;
+    public Brand getBrandFromVehicleJson(Vehicle v) {
+        Brand brand = new Brand();
 
         if (v.getBrand() != null) {
             brand = brandService.findOne(v.getBrand().getId());
@@ -108,7 +106,7 @@ public class VehicleService implements CrudService {
         return brand;
     }
 
-    private List<Engine> getEnginesFromVehicleJson(Vehicle v) {
+    public List<Engine> getEnginesFromVehicleJson(Vehicle v) {
         List<Engine> filledEngines = new ArrayList<>();
         List<Engine> engines = v.getEngines();
 

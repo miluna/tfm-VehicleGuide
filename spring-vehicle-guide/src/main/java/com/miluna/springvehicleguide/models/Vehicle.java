@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.miluna.springvehicleguide.entities.VehicleEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,11 +36,13 @@ public class Vehicle {
 
     public Vehicle(VehicleEntity entity){
         this.id = entity.getId();
-        this.brand = new Brand(entity.getBrand());
-        this.engines = entity.getEngines()
+        this.brand = (entity.getBrand() != null) ? new Brand(entity.getBrand()) : new Brand();
+        this.engines = (entity.getEngines() != null) ?
+                entity.getEngines()
                         .stream()
                         .map(e -> new Engine(e))
-                        .collect(Collectors.toList());
+                        .collect(Collectors.toList())
+                : new ArrayList<>();
         this.name = entity.getName();
         this.description = entity.getDescription();
         this.year = entity.getYear();

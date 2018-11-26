@@ -36,6 +36,7 @@ public class EngineService implements CrudService {
 
     @Override
     public Engine findOne(Long id) {
+        if (id == null) return null;
         Optional<EngineEntity> found = repository.findById(id);
         if (found.isPresent()){
             Engine e = new Engine(found.get());
@@ -46,6 +47,7 @@ public class EngineService implements CrudService {
 
     @Override
     public Engine updateOne(Long id, Object o) {
+        if (id == null) return null;
         Engine e = mapper.convertValue(o, Engine.class);
         EngineEntity target = new EngineEntity(e);
 

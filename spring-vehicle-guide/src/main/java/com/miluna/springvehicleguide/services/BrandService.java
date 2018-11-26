@@ -37,6 +37,8 @@ public class BrandService implements CrudService {
 
     @Override
     public Brand findOne(Long id) {
+        if (id == null) return null;
+
         Optional<BrandEntity> found = repository.findById(id);
         if (found.isPresent()){
             BrandEntity entity = found.get();
@@ -48,6 +50,7 @@ public class BrandService implements CrudService {
 
     @Override
     public Brand updateOne(Long id, Object o) {
+        if (id == null) return null;
         Brand brand = mapper.convertValue(o, Brand.class);
         BrandEntity target = new BrandEntity(brand);
 
