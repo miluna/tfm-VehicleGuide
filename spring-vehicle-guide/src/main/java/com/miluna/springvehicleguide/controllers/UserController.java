@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController(value = "UserController")
-public class UserController implements DefaultController {
+public class UserController implements CrudController {
 
     private static Logger LOG = Logger.getLogger(UserController.class);
 
@@ -38,7 +38,7 @@ public class UserController implements DefaultController {
     @GetMapping(value = "/users/{id}")
     @Override
     public ResponseEntity getOne(@PathVariable Long id) {
-        User u = service.findOne(id);
+        User u = (id != null) ? service.findOne(id) : null;
         if (u == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else return new ResponseEntity<>(u, HttpStatus.OK);
     }
@@ -46,7 +46,7 @@ public class UserController implements DefaultController {
     @PutMapping(value = "/users/{id}")
     @Override
     public ResponseEntity updateOne(@PathVariable Long id, @RequestBody Object o) {
-        User result = service.updateOne(id, o);
+        User result = (id != null) ? service.updateOne(id, o) : null;
         if (result == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

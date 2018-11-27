@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service(value = "BrandService")
-public class BrandService implements DefaultService {
+public class BrandService implements CrudService {
 
     private static Logger LOG = Logger.getLogger(BrandService.class);
 
@@ -37,6 +37,8 @@ public class BrandService implements DefaultService {
 
     @Override
     public Brand findOne(Long id) {
+        if (id == null) return null;
+
         Optional<BrandEntity> found = repository.findById(id);
         if (found.isPresent()){
             BrandEntity entity = found.get();
@@ -48,6 +50,7 @@ public class BrandService implements DefaultService {
 
     @Override
     public Brand updateOne(Long id, Object o) {
+        if (id == null) return null;
         Brand brand = mapper.convertValue(o, Brand.class);
         BrandEntity target = new BrandEntity(brand);
 

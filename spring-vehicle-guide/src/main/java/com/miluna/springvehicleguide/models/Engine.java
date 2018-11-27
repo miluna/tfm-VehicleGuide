@@ -1,5 +1,6 @@
 package com.miluna.springvehicleguide.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.gson.Gson;
 import com.miluna.springvehicleguide.entities.EngineEntity;
 import lombok.AllArgsConstructor;
@@ -7,25 +8,26 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Engine {
 
     private Long id;
 
-    private Number cylinders;
+    private Integer cylinders;
 
-    private Number displacement;
+    private Integer displacement;
 
-    private Number horsepower;
+    private Integer horsepower;
 
     private Boolean hasTurbo;
 
     private String type;
 
-    private Number pollution;
+    private Integer pollution;
 
     private Character energyCertificate;
 
-    private Number autonomy;
+    private Integer autonomy;
 
     public Engine(){}
 

@@ -5,7 +5,6 @@ import com.miluna.springvehicleguide.models.Brand;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import javax.persistence.*;
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -22,7 +21,7 @@ public class BrandEntity implements UpdateableEntity {
     private String name;
 
     @Column(name = "year")
-    private Date year;
+    private Integer year;
 
     @Column(name = "country")
     private String country;

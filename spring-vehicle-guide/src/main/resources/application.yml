@@ -6,11 +6,11 @@ spring:
     name: "vehicle-guide"
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: "jdbc:mysql://localhost:3306/vehicleguide"
+    url: "jdbc:mysql://dev-vehicleguide.cfsprt6kxrun.eu-west-1.rds.amazonaws.com:3306/vehicleguide"
     hikari:
       auto-commit: true
-      username: "root"
-      password: "root"
+      username: "miluna"
+      password: "vehicleguidepass"
   jpa:
     show-sql: true
     hibernate:

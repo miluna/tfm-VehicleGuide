@@ -2,7 +2,7 @@ package com.miluna.springvehicleguide.services;
 
 import java.util.List;
 
-public interface DefaultService<T> {
+public interface CrudService<T> {
 
     T createOne(T t);
 

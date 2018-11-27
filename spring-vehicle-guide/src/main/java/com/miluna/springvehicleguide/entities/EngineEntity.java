@@ -18,13 +18,13 @@ public class EngineEntity implements UpdateableEntity{
     private Long id;
 
     @Column(name = "cylinders")
-    private Number cylinders;
+    private Integer cylinders;
 
     @Column(name = "displacement")
-    private Number displacement;
+    private Integer displacement;
 
     @Column(name = "horsepower")
-    private Number horsepower;
+    private Integer horsepower;
 
     @Column(name = "hasTurbo")
     private Boolean hasTurbo;
@@ -33,13 +33,13 @@ public class EngineEntity implements UpdateableEntity{
     private String type;
 
     @Column(name = "pollution")
-    private Number pollution;
+    private Integer pollution;
 
     @Column(name = "energyCertificate")
     private Character energyCertificate;
 
     @Column(name = "autonomy")
-    private Number autonomy;
+    private Integer autonomy;
 
     public EngineEntity(){}
 
@@ -57,24 +57,24 @@ public class EngineEntity implements UpdateableEntity{
 
     // VALIDATION
 
-    public void setCylinders(Number cylinders){
-        if (cylinders.longValue() < 0) this.cylinders = 0;
-        else this.cylinders = cylinders.longValue();
+    public void setCylinders(Integer cylinders){
+        if (cylinders == null || cylinders < 0) this.cylinders = 0;
+        else this.cylinders = cylinders;
     }
 
-    public void setDisplacement(Number displacement){
-        if (displacement.longValue() < 0) this.displacement = 0;
-        else this.displacement = displacement.longValue();
+    public void setDisplacement(Integer displacement){
+        if (displacement == null || displacement < 0) this.displacement = 0;
+        else this.displacement = displacement;
     }
 
-    public void setHorsepower(Number horsepower){
-        if (horsepower.longValue() < 0) this.horsepower = 0;
-        else this.horsepower = horsepower.longValue();
+    public void setHorsepower(Integer horsepower){
+        if (horsepower == null || horsepower < 0) this.horsepower = 0;
+        else this.horsepower = horsepower;
     }
 
-    public void setAutonomy(Number autonomy){
-        if (autonomy.longValue() < 0) this.autonomy = 0;
-        else this.autonomy = autonomy.longValue();
+    public void setAutonomy(Integer autonomy){
+        if (autonomy == null || autonomy < 0) this.autonomy = 0;
+        else this.autonomy = autonomy;
     }
 
     @Override

@@ -1,20 +1,21 @@
 package com.miluna.springvehicleguide.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.gson.Gson;
 import com.miluna.springvehicleguide.entities.BrandEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Brand {
 
     private Long id;
 
     private String name;
 
-    private Date year;
+    private Integer year;
 
     private String country;
 

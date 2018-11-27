@@ -7,14 +7,13 @@ import com.miluna.springvehicleguide.repositories.UserRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service(value = "UserService")
-public class UserService implements DefaultService {
+public class UserService implements CrudService {
 
     private static Logger LOG = Logger.getLogger(UserService.class);
 
@@ -28,21 +27,22 @@ public class UserService implements DefaultService {
     }
 
     @Override
-    public Object createOne(Object o) {
+    public User createOne(Object o) {
         User u = mapper.convertValue(o, User.class);
         try {
             UserEntity entity = new UserEntity(u, true);
             UserEntity result = repository.save(entity);
-            return new User(result);
+            u = new User(result);
         } catch (Exception e){
             LOG.error("Error creating UserEntity");
             LOG.error(e);
-            return new Error(e.getMessage());
         }
+        return u;
     }
 
     @Override
     public User findOne(Long id) {
+        if (id == null) return null;
         User result = null;
 
         Optional<UserEntity> found = repository.findById(id);
@@ -54,6 +54,7 @@ public class UserService implements DefaultService {
 
     @Override
     public User updateOne(Long id, Object o) {
+        if (id == null) return null;
         User u = mapper.convertValue(o, User.class);
 
         Optional<UserEntity> found = repository.findById(id);
@@ -82,28 +83,4 @@ public class UserService implements DefaultService {
         return result;
     }
 
-    public User login(User logUser){
-        User result = null;
-
-        try {
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            UserEntity entity = new UserEntity(logUser, false);
-            UserEntity found = repository.findByEmail(entity.getEmail());
-
-            if (found != null) {
-                boolean passwordMatches = encoder.matches(entity.getPassword(), found.getPassword());
-                if (passwordMatches) result = new User(found);
-            }
-        } catch (Exception e) {
-            LOG.error(e);
-        }
-        return result;
-    }
-
-    public boolean isUserAdmin(Long id) {
-        UserEntity found = repository.findAdminById(id);
-
-        if (found == null) return false;
-        else return true;
-    }
 }

@@ -1,13 +1,12 @@
 {
 	"info": {
-		"_postman_id": "fb89b99e-44de-4438-82ac-a438fb153e61",
+		"_postman_id": "f336d4b4-b4a7-485c-a480-734cba716553",
 		"name": "vg",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "POST",
-			"description": null,
 			"item": [
 				{
 					"name": "POST user",
@@ -44,13 +43,36 @@
 					"name": "POST vehicle",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZW1vYWRtaW5AZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE1NDMxODA4MDAsImV4cCI6MTU0MzI2NzIwMH0.GUeVGTmtJK5xFZPiq3a7t7XB91pSWfx1kBMphzXq_bstqwq-MsJlLRe0NZ4JjEpSRUpQEfXkvLIjZQkEFYlfhg",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": ""
+							"raw": "{\n\t\"brand\": {\n\t\t\"id\": 1\n\t},\n\t\"engines\": [{\n\t\t\"id\": 1\n\t}], \n\t\"name\": \"Focus\",\n\t\"description\": \"Ford's best seller hatchback\",\n\t\"year\": 2018,\n\t\"weight\": 1700,\n\t\"doors\": 5,\n\t\"segment\": \"C\",\n\t\"basePrice\": 12000\n}"
 						},
 						"url": {
-							"raw": ""
+							"raw": "localhost:5000/vehicles",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"vehicles"
+							]
 						}
 					},
 					"response": []
@@ -70,12 +92,12 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZW1vYWRtaW5AZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE1NDE4ODc5NzEsImV4cCI6MTU0MTk3NDM3MX0.g8lTWCPmDR-EF5qmAmM2JZDsmS-7_tLtdKiiFQy7qWLBn7aTPItAW50uNwQeYHo1pzMovPKfWujLeCa2VsbiNA"
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZW1vYWRtaW5AZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE1NDMxODA4MDAsImV4cCI6MTU0MzI2NzIwMH0.GUeVGTmtJK5xFZPiq3a7t7XB91pSWfx1kBMphzXq_bstqwq-MsJlLRe0NZ4JjEpSRUpQEfXkvLIjZQkEFYlfhg"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Opel\",\n\t\"country\": \"Germany\"\n}"
+							"raw": "{\n\t\"name\": \"Ford\",\n\t\"country\": \"United States\",\n\t\"year\": 1903\n}"
 						},
 						"url": {
 							"raw": "localhost:5000/brands",
@@ -105,12 +127,12 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZW1vYWRtaW5AZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE1NDE4ODc5NzEsImV4cCI6MTU0MTk3NDM3MX0.g8lTWCPmDR-EF5qmAmM2JZDsmS-7_tLtdKiiFQy7qWLBn7aTPItAW50uNwQeYHo1pzMovPKfWujLeCa2VsbiNA"
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZW1vYWRtaW5AZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE1NDMxODA4MDAsImV4cCI6MTU0MzI2NzIwMH0.GUeVGTmtJK5xFZPiq3a7t7XB91pSWfx1kBMphzXq_bstqwq-MsJlLRe0NZ4JjEpSRUpQEfXkvLIjZQkEFYlfhg"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"cylinders\": 3,\n\t\"displacement\": 1000,\n\t\"horsepower\": 125,\n\t\"hasTurbo\": true,\n\t\"type\": \"petrol\",\n\t\"pollution\": null,\n\t\"energyCertificate\": \"C\",\n\t\"autonomy\": \"1000\"\n}"
+							"raw": "{\n\t\"cylinders\": 3,\n\t\"displacement\": 1000,\n\t\"horsepower\": 125,\n\t\"hasTurbo\": true,\n\t\"type\": \"petrol\",\n\t\"pollution\": null,\n\t\"energyCertificate\": \"C\",\n\t\"autonomy\": \"800\"\n}"
 						},
 						"url": {
 							"raw": "localhost:5000/engines",
@@ -129,7 +151,6 @@
 		},
 		{
 			"name": "GET",
-			"description": null,
 			"item": [
 				{
 					"name": "GET user",
@@ -353,7 +374,6 @@
 		},
 		{
 			"name": "PUT",
-			"description": null,
 			"item": [
 				{
 					"name": "PUT user",
@@ -455,7 +475,6 @@
 		},
 		{
 			"name": "DELETE",
-			"description": null,
 			"item": [
 				{
 					"name": "DELETE user",
@@ -590,7 +609,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:5000/search",
+					"raw": "http://localhost:5000/search?brand=ford&name=focus&minPrice=10000&maxPrice=15000&orderValue=basePrice&order=ASC",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -598,6 +617,32 @@
 					"port": "5000",
 					"path": [
 						"search"
+					],
+					"query": [
+						{
+							"key": "brand",
+							"value": "ford"
+						},
+						{
+							"key": "name",
+							"value": "focus"
+						},
+						{
+							"key": "minPrice",
+							"value": "10000"
+						},
+						{
+							"key": "maxPrice",
+							"value": "15000"
+						},
+						{
+							"key": "orderValue",
+							"value": "basePrice"
+						},
+						{
+							"key": "order",
+							"value": "ASC"
+						}
 					]
 				}
 			},
