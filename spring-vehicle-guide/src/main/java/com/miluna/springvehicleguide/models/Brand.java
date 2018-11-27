@@ -1,5 +1,6 @@
 package com.miluna.springvehicleguide.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.gson.Gson;
 import com.miluna.springvehicleguide.entities.BrandEntity;
 import lombok.AllArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Brand {
 
     private Long id;

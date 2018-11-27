@@ -1,5 +1,6 @@
 package com.miluna.springvehicleguide.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.gson.Gson;
 import com.miluna.springvehicleguide.entities.VehicleEntity;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Vehicle {
 
     private Long id;

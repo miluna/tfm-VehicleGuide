@@ -1,12 +1,12 @@
 package com.miluna.springvehicleguide.services;
 
-import com.google.gson.Gson;
+import com.miluna.springvehicleguide.models.Vehicle;
+import com.miluna.springvehicleguide.models.mappers.VehicleSearchMapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class SearchService {
         StringBuilder sql = new StringBuilder();
 
         // Prepare sql
-        String select = "SELECT A.id, A.name, A.year, A.base_price as basePrice, A.segment ";
+        String select = "SELECT A.id, A.name, A.year, A.base_price, A.segment ";
         String tables =
                 "FROM vehicles A " +
                 "INNER JOIN brands B " +
@@ -51,9 +51,9 @@ public class SearchService {
 
         LOG.debug("QUERY: ");
         LOG.debug(sql.toString());
-        List<?> results = jdbc.queryForList(sql.toString());
-        LOG.debug("RESULTS: ");
-        LOG.debug(new Gson().toJson(results));
+        List<Vehicle> results = jdbc.query(sql.toString(), new VehicleSearchMapper());
+        // LOG.debug("RESULTS: ");
+        // LOG.debug(new Gson().toJson(results));
 
         return results;
     }
