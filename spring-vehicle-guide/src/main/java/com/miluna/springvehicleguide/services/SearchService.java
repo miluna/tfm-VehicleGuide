@@ -21,7 +21,7 @@ public class SearchService {
         this.jdbc = jdbcTemplate;
     }
 
-    public List doSearch(String vehicleName,
+    public List<Vehicle> doSearch(String vehicleName,
                          String vehicleType,
                          String brand,
                          String minPrice,

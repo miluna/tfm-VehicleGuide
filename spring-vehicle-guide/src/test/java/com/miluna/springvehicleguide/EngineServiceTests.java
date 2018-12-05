@@ -52,11 +52,10 @@ public class EngineServiceTests implements CrudTests {
     @Test
     @Override
     public void getAllTest() {
-        List result = service.findAll();
+        List<Engine> result = service.findAll();
 
         assertNotNull(result);
         // assert false -> should contain model not entity
-        assertFalse(result.contains(mock));
         result.forEach(e -> assertTrue(e instanceof Engine));
     }
 

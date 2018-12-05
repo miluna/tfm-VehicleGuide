@@ -10,7 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "brands")
-public class BrandEntity implements UpdateableEntity {
+public class BrandEntity implements UpdateableEntity<Object> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

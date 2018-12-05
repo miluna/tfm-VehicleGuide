@@ -1,18 +1,20 @@
 package com.miluna.springvehicleguide.controllers;
 
+import java.util.List;
 import com.miluna.springvehicleguide.models.User;
 import com.miluna.springvehicleguide.services.UserService;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @RestController(value = "UserController")
-public class UserController implements CrudController {
-
-    private static Logger LOG = Logger.getLogger(UserController.class);
+@Api(value = "Controller designed to add/retrieve/modify users")
+public class UserController implements CrudController<User> {
 
     private final UserService service;
 
@@ -22,44 +24,60 @@ public class UserController implements CrudController {
     }
 
     @GetMapping(value = "/users")
+    @ApiOperation(value = "Get all users", response = List.class)
     @Override
-    public ResponseEntity getAll() {
+    public ResponseEntity<List<User>> getAll() {
+
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/users")
+    @ApiOperation(value = "Create one user", response = User.class)
     @Override
-    public ResponseEntity createOne(@RequestBody Object o) {
-        Object result = service.createOne(o);
-        if (result instanceof Error) return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
-        else return new ResponseEntity<>(result, HttpStatus.OK);
+    public ResponseEntity<User> createOne(
+        @ApiParam(value = "User object model", required = true) @RequestBody User o) {
+
+        if (o.getPassword().equals(o.getPassword2())) {
+            User result = service.createOne(o);
+            if (result != null) return new ResponseEntity<>(result, HttpStatus.OK);
+            else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);       
+        
     }
 
     @GetMapping(value = "/users/{id}")
+    @ApiOperation(value = "Get one user", response = User.class)
     @Override
-    public ResponseEntity getOne(@PathVariable Long id) {
+    public ResponseEntity<User> getOne(
+        @ApiParam(value = "User id", required = true) @PathVariable Long id) {
+
         User u = (id != null) ? service.findOne(id) : null;
         if (u == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else return new ResponseEntity<>(u, HttpStatus.OK);
     }
 
     @PutMapping(value = "/users/{id}")
+    @ApiOperation(value = "Update one user", response = User.class)
     @Override
-    public ResponseEntity updateOne(@PathVariable Long id, @RequestBody Object o) {
+    public ResponseEntity<User> updateOne(
+        @ApiParam(value = "User id", required = true) @PathVariable Long id, 
+        @ApiParam(value = "User object model", required = true) @RequestBody User o) {
+
         User result = (id != null) ? service.updateOne(id, o) : null;
         if (result == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/users/{id}")
+    @ApiOperation(value = "Delete one user", response = HttpStatus.class)
     @Override
-    public ResponseEntity deleteOne(@PathVariable Long id) {
+    public ResponseEntity<HttpStatus> deleteOne(
+        @ApiParam(value = "User id", required = true) @PathVariable Long id) {
+
         boolean result = service.deleteOne(id);
-        if (result)return new ResponseEntity<>(HttpStatus.OK);
+        if (result) return new ResponseEntity<>(HttpStatus.OK);
         else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
-    // post mapping to /login is implemented by spring security
-    // @PostMapping(value = "/login")
 
 }

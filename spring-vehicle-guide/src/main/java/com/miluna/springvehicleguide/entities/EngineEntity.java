@@ -10,7 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "engines")
-public class EngineEntity implements UpdateableEntity{
+public class EngineEntity implements UpdateableEntity<Object> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

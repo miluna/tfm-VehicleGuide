@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.miluna.springvehicleguide.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.persistence.*;
 
@@ -12,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class UserEntity implements UpdateableEntity {
+public class UserEntity implements UpdateableEntity<Object> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

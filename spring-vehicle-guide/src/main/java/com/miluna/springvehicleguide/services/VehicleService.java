@@ -1,12 +1,10 @@
 package com.miluna.springvehicleguide.services;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miluna.springvehicleguide.entities.VehicleEntity;
 import com.miluna.springvehicleguide.models.Brand;
 import com.miluna.springvehicleguide.models.Engine;
 import com.miluna.springvehicleguide.models.Vehicle;
 import com.miluna.springvehicleguide.repositories.VehicleRepository;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -16,14 +14,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service(value = "VehicleService")
-public class VehicleService implements CrudService {
-
-    private static Logger LOG = Logger.getLogger(VehicleService.class);
+public class VehicleService implements CrudService<Vehicle> {
 
     private final BrandService brandService;
     private final EngineService engineService;
     private final VehicleRepository repository;
-    private static ObjectMapper mapper;
 
     @Autowired
     private VehicleService(@Qualifier(value = "VehicleRepository") VehicleRepository repository,
@@ -32,12 +27,10 @@ public class VehicleService implements CrudService {
         this.repository = repository;
         this.brandService = brandService;
         this.engineService = engineService;
-        mapper = new ObjectMapper();
     }
 
     @Override
-    public Vehicle createOne(Object o) {
-        Vehicle v = mapper.convertValue(o, Vehicle.class);
+    public Vehicle createOne(Vehicle v) {
         // retrieve all info from mapped object
         Brand brand = this.getBrandFromVehicleJson(v);
         List<Engine> engines = this.getEnginesFromVehicleJson(v);
@@ -59,9 +52,8 @@ public class VehicleService implements CrudService {
     }
 
     @Override
-    public Vehicle updateOne(Long id, Object o) {
+    public Vehicle updateOne(Long id, Vehicle v) {
         if (id == null) return null;
-        Vehicle v = mapper.convertValue(o, Vehicle.class);
         // retrieve all info from mapped object
         Brand brand = this.getBrandFromVehicleJson(v);
         List<Engine> engines = this.getEnginesFromVehicleJson(v);
@@ -88,7 +80,7 @@ public class VehicleService implements CrudService {
     }
 
     @Override
-    public List findAll() {
+    public List<Vehicle> findAll() {
         List<Vehicle> result = repository.findAll()
                 .stream()
                 .map(e -> new Vehicle(e))

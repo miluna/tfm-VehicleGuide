@@ -12,6 +12,6 @@ public interface CrudService<T> {
 
     Boolean deleteOne(Long id);
 
-    List findAll();
+    List<T> findAll();
 
 }

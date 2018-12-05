@@ -36,7 +36,7 @@ public class BrandControllerTests implements CrudTests {
     @Test
     @Override
     public void getOneTest() {
-        ResponseEntity res = controller.getOne(1L);
+        ResponseEntity<Brand> res = controller.getOne(1L);
         Object resBody = res.getBody();
 
         assertNotNull(resBody);
@@ -46,7 +46,7 @@ public class BrandControllerTests implements CrudTests {
     @Test
     @Override
     public void getOneFail() {
-        ResponseEntity res = controller.getOne(null);
+        ResponseEntity<Brand> res = controller.getOne(null);
         Object resBody = res.getBody();
 
         assertNull(resBody);
@@ -56,8 +56,8 @@ public class BrandControllerTests implements CrudTests {
     @Test
     @Override
     public void getAllTest() {
-        ResponseEntity res = controller.getAll();
-        List resBody = (List) res.getBody();
+        ResponseEntity<List<Brand>> res = controller.getAll();
+        List<Brand> resBody = res.getBody();
 
         assertNotNull(resBody);
         assertTrue(resBody.contains(mock));
@@ -66,7 +66,7 @@ public class BrandControllerTests implements CrudTests {
     @Test
     @Override
     public void createOneTest() {
-        ResponseEntity res = controller.createOne(new Brand());
+        ResponseEntity<Brand> res = controller.createOne(new Brand());
         Object resBody = res.getBody();
 
         assertNotNull(resBody);
@@ -76,7 +76,7 @@ public class BrandControllerTests implements CrudTests {
     @Test
     @Override
     public void updateOneTest() {
-        ResponseEntity res = controller.updateOne(1L, new Brand());
+        ResponseEntity<Brand> res = controller.updateOne(1L, new Brand());
         Object resBody = res.getBody();
 
         assertNotNull(resBody);
@@ -86,7 +86,7 @@ public class BrandControllerTests implements CrudTests {
     @Test
     @Override
     public void updateOneFail() {
-        ResponseEntity res = controller.updateOne(null, new Brand());
+        ResponseEntity<Brand> res = controller.updateOne(null, new Brand());
         Object resBody = res.getBody();
 
         assertNull(resBody);
@@ -96,7 +96,7 @@ public class BrandControllerTests implements CrudTests {
     @Test
     @Override
     public void deleteOneTest() {
-        ResponseEntity res = controller.deleteOne(1L);
+        ResponseEntity<HttpStatus> res = controller.deleteOne(1L);
         Object resBody = res.getBody();
 
         assertNull(resBody);

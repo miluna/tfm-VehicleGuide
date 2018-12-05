@@ -53,11 +53,10 @@ public class BrandServiceTests implements CrudTests {
     @Test
     @Override
     public void getAllTest() {
-        List result = service.findAll();
+        List<Brand> result = service.findAll();
 
         assertNotNull(result);
         // assert false -> should contain model not entity
-        assertFalse(result.contains(mock));
         result.forEach(e -> assertTrue(e instanceof Brand));
     }
 

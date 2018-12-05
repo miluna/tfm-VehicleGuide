@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Entity
 @Table(name = "vehicles")
-public class VehicleEntity implements UpdateableEntity {
+public class VehicleEntity implements UpdateableEntity<Object> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

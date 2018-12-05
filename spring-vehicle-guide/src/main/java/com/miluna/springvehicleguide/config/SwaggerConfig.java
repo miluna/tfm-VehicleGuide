@@ -29,6 +29,7 @@ public class SwaggerConfig {
     /**
      * Creates api info for swagger 2
      */
+    @Bean
     private ApiInfo apiInfo() {
 
         return new ApiInfo(
