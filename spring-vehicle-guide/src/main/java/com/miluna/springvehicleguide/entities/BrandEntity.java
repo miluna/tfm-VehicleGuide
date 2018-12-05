@@ -10,7 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "brands")
-public class BrandEntity implements UpdateableEntity<Object> {
+public class BrandEntity implements UpdateableEntity<BrandEntity> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,8 +41,7 @@ public class BrandEntity implements UpdateableEntity<Object> {
     }
 
     @Override
-    public void updateProperties(Object newEntity) {
-        BrandEntity target = (BrandEntity) newEntity;
+    public void updateProperties(BrandEntity target) {
 
         this.name = target.getName();
         this.year = target.getYear();
