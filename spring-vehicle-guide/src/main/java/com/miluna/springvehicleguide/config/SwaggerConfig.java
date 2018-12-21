@@ -29,7 +29,8 @@ public class SwaggerConfig {
     /**
      * Creates api info for swagger 2
      */
-    private ApiInfo apiInfo() {
+    @Bean
+    public ApiInfo apiInfo() {
 
         return new ApiInfo(
                 "VehicleGuideAPI",

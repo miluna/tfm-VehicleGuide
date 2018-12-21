@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Entity
 @Table(name = "vehicles")
-public class VehicleEntity implements UpdateableEntity {
+public class VehicleEntity implements UpdateableEntity<VehicleEntity> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -82,8 +82,7 @@ public class VehicleEntity implements UpdateableEntity {
     }
 
     @Override
-    public void updateProperties(Object newEntity) {
-        VehicleEntity target = (VehicleEntity) newEntity;
+    public void updateProperties(VehicleEntity target) {
 
         this.name = target.getName();
         this.description = target.getDescription();

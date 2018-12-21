@@ -1,7 +1,6 @@
 package com.miluna.springvehicleguide;
 
 import com.miluna.springvehicleguide.controllers.UserController;
-import com.miluna.springvehicleguide.models.Brand;
 import com.miluna.springvehicleguide.models.User;
 import com.miluna.springvehicleguide.services.UserService;
 import org.junit.Before;
@@ -37,7 +36,7 @@ public class UserControllerTests implements CrudTests {
     @Test
     @Override
     public void getOneTest() {
-        ResponseEntity res = controller.getOne(1L);
+        ResponseEntity<User> res = controller.getOne(1L);
         Object resBody = res.getBody();
 
         assertNotNull(resBody);
@@ -47,7 +46,7 @@ public class UserControllerTests implements CrudTests {
     @Test
     @Override
     public void getOneFail() {
-        ResponseEntity res = controller.getOne(null);
+        ResponseEntity<User> res = controller.getOne(null);
         Object resBody = res.getBody();
 
         assertNull(resBody);
@@ -57,8 +56,8 @@ public class UserControllerTests implements CrudTests {
     @Test
     @Override
     public void getAllTest() {
-        ResponseEntity res = controller.getAll();
-        List resBody = (List) res.getBody();
+        ResponseEntity<List<User>> res = controller.getAll();
+        List<User> resBody = res.getBody();
 
         assertNotNull(resBody);
         assertTrue(resBody.contains(mock));
@@ -67,7 +66,10 @@ public class UserControllerTests implements CrudTests {
     @Test
     @Override
     public void createOneTest() {
-        ResponseEntity res = controller.createOne(new Brand());
+        User u = new User();
+        u.setPassword("abc");
+        u.setPassword2("abc");
+        ResponseEntity<User> res = controller.createOne(u);
         Object resBody = res.getBody();
 
         assertNotNull(resBody);
@@ -75,9 +77,21 @@ public class UserControllerTests implements CrudTests {
     }
 
     @Test
+    public void createOneFail() {
+        User u = new User();
+        u.setPassword("abc");
+        u.setPassword2("asdjasdas");
+        ResponseEntity<User> res = controller.createOne(u);
+        Object resBody = res.getBody();
+
+        assertNull(resBody);
+        assertSame(res.getStatusCode(), HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
     @Override
     public void updateOneTest() {
-        ResponseEntity res = controller.updateOne(1L, new Brand());
+        ResponseEntity<User> res = controller.updateOne(1L, new User());
         Object resBody = res.getBody();
 
         assertNotNull(resBody);
@@ -87,7 +101,7 @@ public class UserControllerTests implements CrudTests {
     @Test
     @Override
     public void updateOneFail() {
-        ResponseEntity res = controller.updateOne(null, new Brand());
+        ResponseEntity<User> res = controller.updateOne(null, new User());
         Object resBody = res.getBody();
 
         assertNull(resBody);
@@ -97,7 +111,7 @@ public class UserControllerTests implements CrudTests {
     @Test
     @Override
     public void deleteOneTest() {
-        ResponseEntity res = controller.deleteOne(1L);
+        ResponseEntity<HttpStatus> res = controller.deleteOne(1L);
         Object resBody = res.getBody();
 
         assertNull(resBody);

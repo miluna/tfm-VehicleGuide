@@ -10,7 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "engines")
-public class EngineEntity implements UpdateableEntity{
+public class EngineEntity implements UpdateableEntity<EngineEntity> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -83,8 +83,7 @@ public class EngineEntity implements UpdateableEntity{
     }
 
     @Override
-    public void updateProperties(Object newEntity) {
-        EngineEntity target = (EngineEntity) newEntity;
+    public void updateProperties(EngineEntity target) {
 
         this.setCylinders(target.getCylinders());
         this.setDisplacement(target.getDisplacement());

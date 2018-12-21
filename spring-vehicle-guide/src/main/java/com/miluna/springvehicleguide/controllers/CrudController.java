@@ -1,11 +1,12 @@
 package com.miluna.springvehicleguide.controllers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface CrudController<T> {
 
-    ResponseEntity<List> getAll();
+    ResponseEntity<List<T>> getAll();
 
     ResponseEntity<T> createOne(T t);
 
@@ -13,6 +14,6 @@ public interface CrudController<T> {
 
     ResponseEntity<T> updateOne(Long id, T t);
 
-    ResponseEntity<T> deleteOne(Long id);
+    ResponseEntity<HttpStatus> deleteOne(Long id);
 
 }

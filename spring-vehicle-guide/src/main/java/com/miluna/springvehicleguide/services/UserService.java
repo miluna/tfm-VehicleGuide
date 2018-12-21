@@ -1,6 +1,5 @@
 package com.miluna.springvehicleguide.services;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miluna.springvehicleguide.entities.UserEntity;
 import com.miluna.springvehicleguide.models.User;
 import com.miluna.springvehicleguide.repositories.UserRepository;
@@ -13,22 +12,19 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service(value = "UserService")
-public class UserService implements CrudService {
+public class UserService implements CrudService<User> {
 
-    private static Logger LOG = Logger.getLogger(UserService.class);
+    private static final Logger LOG = Logger.getLogger(UserService.class);
 
     private final UserRepository repository;
-    private static ObjectMapper mapper;
 
     @Autowired
     private UserService(@Qualifier(value = "UserRepository") UserRepository repository){
         this.repository = repository;
-        mapper = new ObjectMapper();
     }
 
     @Override
-    public User createOne(Object o) {
-        User u = mapper.convertValue(o, User.class);
+    public User createOne(User u) {
         try {
             UserEntity entity = new UserEntity(u, true);
             UserEntity result = repository.save(entity);
@@ -53,9 +49,8 @@ public class UserService implements CrudService {
     }
 
     @Override
-    public User updateOne(Long id, Object o) {
+    public User updateOne(Long id, User u) {
         if (id == null) return null;
-        User u = mapper.convertValue(o, User.class);
 
         Optional<UserEntity> found = repository.findById(id);
         if (found.isPresent()){
@@ -75,7 +70,7 @@ public class UserService implements CrudService {
     }
 
     @Override
-    public List findAll() {
+    public List<User> findAll() {
         List<User> result = repository.findAll()
                 .stream()
                 .map(e -> new User(e))

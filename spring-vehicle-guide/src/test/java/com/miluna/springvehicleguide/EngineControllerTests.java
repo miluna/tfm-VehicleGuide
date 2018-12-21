@@ -1,7 +1,6 @@
 package com.miluna.springvehicleguide;
 
 import com.miluna.springvehicleguide.controllers.EngineController;
-import com.miluna.springvehicleguide.models.Brand;
 import com.miluna.springvehicleguide.models.Engine;
 import com.miluna.springvehicleguide.services.EngineService;
 import org.junit.Before;
@@ -37,7 +36,7 @@ public class EngineControllerTests implements CrudTests {
     @Test
     @Override
     public void getOneTest() {
-        ResponseEntity res = controller.getOne(1L);
+        ResponseEntity<Engine> res = controller.getOne(1L);
         Object resBody = res.getBody();
 
         assertNotNull(resBody);
@@ -47,7 +46,7 @@ public class EngineControllerTests implements CrudTests {
     @Test
     @Override
     public void getOneFail() {
-        ResponseEntity res = controller.getOne(null);
+        ResponseEntity<Engine> res = controller.getOne(null);
         Object resBody = res.getBody();
 
         assertNull(resBody);
@@ -57,8 +56,8 @@ public class EngineControllerTests implements CrudTests {
     @Test
     @Override
     public void getAllTest() {
-        ResponseEntity res = controller.getAll();
-        List resBody = (List) res.getBody();
+        ResponseEntity<List<Engine>> res = controller.getAll();
+        List<Engine> resBody = res.getBody();
 
         assertNotNull(resBody);
         assertTrue(resBody.contains(mock));
@@ -67,7 +66,7 @@ public class EngineControllerTests implements CrudTests {
     @Test
     @Override
     public void createOneTest() {
-        ResponseEntity res = controller.createOne(new Brand());
+        ResponseEntity<Engine> res = controller.createOne(new Engine());
         Object resBody = res.getBody();
 
         assertNotNull(resBody);
@@ -77,7 +76,7 @@ public class EngineControllerTests implements CrudTests {
     @Test
     @Override
     public void updateOneTest() {
-        ResponseEntity res = controller.updateOne(1L, new Brand());
+        ResponseEntity<Engine> res = controller.updateOne(1L, new Engine());
         Object resBody = res.getBody();
 
         assertNotNull(resBody);
@@ -87,7 +86,7 @@ public class EngineControllerTests implements CrudTests {
     @Test
     @Override
     public void updateOneFail() {
-        ResponseEntity res = controller.updateOne(null, new Brand());
+        ResponseEntity<Engine> res = controller.updateOne(null, new Engine());
         Object resBody = res.getBody();
 
         assertNull(resBody);
@@ -97,7 +96,7 @@ public class EngineControllerTests implements CrudTests {
     @Test
     @Override
     public void deleteOneTest() {
-        ResponseEntity res = controller.deleteOne(1L);
+        ResponseEntity<HttpStatus> res = controller.deleteOne(1L);
         Object resBody = res.getBody();
 
         assertNull(resBody);
