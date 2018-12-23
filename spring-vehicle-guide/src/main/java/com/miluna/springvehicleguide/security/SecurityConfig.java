@@ -11,6 +11,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import java.util.Arrays;
 
 
 @Configuration
@@ -31,6 +35,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // we use stateless session; session won't be used to store user's auth state.
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                // allow CorsConfigurationSource Bean
+                .cors()
+                .and()
                 // handle an authorized attempts
                 .exceptionHandling().authenticationEntryPoint(new RestAuthenticationEntryPoint())
                 .and()
@@ -40,14 +47,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // authorization requests config
                 .authorizeRequests()
 
+                // allow OPTIONS methods
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
                 // allow all to retrieve data, register and log as Admin
                 .antMatchers(HttpMethod.GET, "/**").permitAll()
+
+                // allow for registering
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
+
+                // allow login
                 .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
+
                 // must be an admin if trying to modify data
                 .antMatchers(HttpMethod.POST, "/**").hasRole("ADMIN").anyRequest().authenticated()
                 .antMatchers(HttpMethod.PUT, "/**").hasRole("ADMIN").anyRequest().authenticated()
                 .antMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN").anyRequest().authenticated()
+                .and().formLogin()
                 ;
     }
 
@@ -59,5 +75,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public BCryptPasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.setAllowedHeaders(Arrays.asList("*"));
+        config.setAllowedOrigins(Arrays.asList("*"));
+        config.setAllowedMethods(Arrays.asList("*"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 }

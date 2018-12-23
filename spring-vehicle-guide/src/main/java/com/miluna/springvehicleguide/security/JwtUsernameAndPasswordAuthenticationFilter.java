@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.Date;
 import java.util.stream.Collectors;
@@ -77,8 +78,12 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                 .signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret().getBytes())
                 .compact();
 
-        // Add token to header
-        response.addHeader(jwtConfig.getHeader(), jwtConfig.getPrefix() + token);
+        // Response token in body
+        PrintWriter out = response.getWriter();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        out.print(new JwtToken(jwtConfig.getPrefix() + token));
+        out.flush();
     }
 
 }

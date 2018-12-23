@@ -9,19 +9,6 @@ import org.springframework.web.servlet.config.annotation.*;
 public class WebConfig implements WebMvcConfigurer {
 
     /**
-     * Enables CORS for all endpoints (needed for 3rd party front end apps like React or Angular)
-     */
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("*")
-                .allowedMethods("*")
-                .allowedHeaders("*")
-                .allowCredentials(false)
-                .maxAge(3600);
-    }
-
-    /**
      * Enable the Swagger UI html page while allowing cors
      **/
     @Override
