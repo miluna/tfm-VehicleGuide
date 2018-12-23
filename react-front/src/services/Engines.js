@@ -1,27 +1,29 @@
 // ENGINES CRUD
-import mock from "../mocked_data";
 import axios from "axios";
 import config from "../config";
-import {getEnvironment} from "./Utils";
+import {getAuthHeader, getDefaultHeaders} from "./Auth";
 
 export const getEngine = (id="") => {
-    if (getEnvironment() === "dev") return new Promise(mock.car.engines[0]);
-    else return axios.get(`${config.REST_BASE_URL}/engines?id=${id}`)
+    const headers = getDefaultHeaders();
+    return axios.get(`${config.REST_BASE_URL}/engines?id=${id}`, {headers: headers})
 };
 
 export const getAllEngines = () => {
-    if (getEnvironment() === "dev") return new Promise(mock.car.engines);
-    else return axios.get(`${config.REST_BASE_URL}/engines`)
+    const headers = getDefaultHeaders();
+    return axios.get(`${config.REST_BASE_URL}/engines`, {headers: headers})
 };
 
 export const addEngine = (engineObject) => {
-    return axios.post(`${config.REST_BASE_URL}/engines`, engineObject)
+    const headers = getAuthHeader();
+    return axios.post(`${config.REST_BASE_URL}/engines`, engineObject, {headers: headers})
 };
 
 export const updateEngine = (engineObject) => {
-    return axios.put(`${config.REST_BASE_URL}/engines`, engineObject)
+    const headers = getAuthHeader();
+    return axios.put(`${config.REST_BASE_URL}/engines`, engineObject, {headers: headers})
 };
 
 export const deleteEngine = (id) => {
-    return axios.delete(`${config.REST_BASE_URL}/engines?id=${id}`)
+    const headers = getAuthHeader();
+    return axios.delete(`${config.REST_BASE_URL}/engines?id=${id}`, {headers: headers})
 };

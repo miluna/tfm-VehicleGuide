@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import Button from '../components/Button';
 import Input from '../components/Input';
-import {login} from "../services/Login";
+import {login} from "../services/Auth";
 import {withRouter} from "react-router";
 
 class Login extends Component {
@@ -32,8 +32,8 @@ class Login extends Component {
         if (this.validateParameters()) {
             // send credentials
             let isLoggedin = login(this.state.email, this.state.password);
-            if (isLoggedin.status === "OK") this.setState({logged: true});
-            else this.setState({error: isLoggedin.error});
+            if (isLoggedin) this.setState({logged: true});
+            else this.setState({error: "Email or password are incorrect"});
         }
     };
 
@@ -69,13 +69,18 @@ class Login extends Component {
 
     render() {
         // redirect to admin panel
-        if (this.state.logged) return <Redirect to="/admin" push />;
+        if (this.state.logged) return <Redirect to="/admin" />;
 
         return (
             <div className="container" style={{marginTop: '2rem', marginBottom: '2rem'}}>
                 <div className="form card centered" style={{backgroundColor: '#f5f5f5'}}>
                     <h3 className="Subtitle" style={{fontWeight: 600}}>Email</h3>
-                    <Input type="email" name="email" placeholder="Insert your email" onChange={this.updateEmail}/>
+                    <Input
+                        type="email"
+                        name="email"
+                        placeholder="Insert your email"
+                        onChange={this.updateEmail}
+                    />
                     <br/>
                     <h3 className="Subtitle" style={{fontWeight: 600}}>Password</h3>
                     <Input

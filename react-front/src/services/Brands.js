@@ -1,27 +1,29 @@
 // BRANDS CRUD
-import mock from "../mocked_data";
 import axios from "axios";
 import config from "../config";
-import {getEnvironment} from "./Utils";
+import {getAuthHeader, getDefaultHeaders} from "./Auth";
 
 export const getBrand = (id="") => {
-    if (getEnvironment() === "dev") return new Promise(mock.brand);
-    else return axios.get(`${config.REST_BASE_URL}/brands/${id}`)
+    const headers = getDefaultHeaders();
+    return axios.get(`${config.REST_BASE_URL}/brands/${id}`, {headers: headers})
 };
 
 export const getAllBrands = () => {
-    if (getEnvironment() === "dev") return new Promise(mock.brands);
-    else return axios.get(`${config.REST_BASE_URL}/brands`)
+    const headers = getDefaultHeaders();
+    return axios.get(`${config.REST_BASE_URL}/brands`, {headers: headers})
 };
 
 export const addBrand = (brandObject) => {
-    return axios.post(`${config.REST_BASE_URL}/brands`, brandObject)
+    const headers = getAuthHeader();
+    return axios.post(`${config.REST_BASE_URL}/brands`, brandObject, {headers: headers})
 };
 
 export const updateBrand = (id, brandObject) => {
-    return axios.put(`${config.REST_BASE_URL}/brands/${id}`, brandObject)
+    const headers = getAuthHeader();
+    return axios.put(`${config.REST_BASE_URL}/brands/${id}`, brandObject, {headers: headers})
 };
 
 export const deleteBrand = (id) => {
-    return axios.delete(`${config.REST_BASE_URL}/brands/${id}`)
+    const headers = getAuthHeader();
+    return axios.delete(`${config.REST_BASE_URL}/brands/${id}`, {headers: headers})
 };

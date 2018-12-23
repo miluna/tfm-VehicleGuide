@@ -1,38 +1,40 @@
 // VEHICLES CRUD
-import mock from "../mocked_data";
 import axios from "axios";
 import config from "../config";
-import {getEnvironment} from "./Utils";
+import {getAuthHeader, getDefaultHeaders} from "./Auth";
 
 export const getVehicle = (id="") => {
-    if (getEnvironment() === "dev") return new Promise(mock.car);
-    else return axios.get(`${config.REST_BASE_URL}/vehicles/${id}`)
+    const headers = getDefaultHeaders();
+    return axios.get(`${config.REST_BASE_URL}/vehicles/${id}`, {headers: headers})
 };
 
 export const getAllVehicles = () => {
-    if (getEnvironment() === "dev") return new Promise(mock.cars);
-    else return axios.get(`${config.REST_BASE_URL}/vehicles`)
+    const headers = getDefaultHeaders();
+    return axios.get(`${config.REST_BASE_URL}/vehicles`, {headers: headers})
 };
 
 export const addVehicle = (vehicleObject) => {
-    return axios.post(`${config.REST_BASE_URL}/vehicles`, vehicleObject)
+    const headers = getAuthHeader();
+    return axios.post(`${config.REST_BASE_URL}/vehicles`, vehicleObject, {headers: headers})
 };
 
 export const updateVehicle = (id, vehicleObject) => {
-    return axios.put(`${config.REST_BASE_URL}/vehicles/${id}`, vehicleObject)
+    const headers = getAuthHeader();
+    return axios.put(`${config.REST_BASE_URL}/vehicles/${id}`, vehicleObject, {headers: headers})
 };
 
 export const deleteVehicle = (id) => {
-    return axios.delete(`${config.REST_BASE_URL}/vehicles/${id}`)
+    const headers = getAuthHeader();
+    return axios.delete(`${config.REST_BASE_URL}/vehicles/${id}`, {headers: headers})
 };
 
 // COMBINED
 export const getVehicleEngines = (vehicleId="") => {
-    if (getEnvironment() === "dev") return new Promise(mock.car.engines);
-    else return axios.get(`${config.REST_BASE_URL}/vehicles/${vehicleId}/engines`)
+    const headers = getDefaultHeaders();
+    return axios.get(`${config.REST_BASE_URL}/vehicles/${vehicleId}/engines`, {headers: headers})
 };
 
 export const getBrandVehicles = (brandId="") => {
-    if (getEnvironment() === "dev") return new Promise(mock.brand.cars);
-    else return axios.get(`${config.REST_BASE_URL}/vehicles?brandId=${brandId}`)
+    const headers = getDefaultHeaders();
+    return axios.get(`${config.REST_BASE_URL}/vehicles?brandId=${brandId}`, {headers: headers})
 };
