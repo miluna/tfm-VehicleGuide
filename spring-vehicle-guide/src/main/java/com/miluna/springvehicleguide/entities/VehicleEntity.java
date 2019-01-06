@@ -46,6 +46,9 @@ public class VehicleEntity implements UpdateableEntity<VehicleEntity> {
     @Column(name = "basePrice")
     private Long basePrice;
 
+    @Column(name = "main_image")
+    private String mainImage;
+
     public VehicleEntity(){}
 
     public VehicleEntity(Vehicle dto){
@@ -62,6 +65,7 @@ public class VehicleEntity implements UpdateableEntity<VehicleEntity> {
         setDoors(dto.getDoors());
         setSegment(dto.getSegment());
         setBasePrice(dto.getBasePrice());
+        setMainImage(dto.getMainImage());
     }
 
     // VALIDATION
@@ -87,11 +91,13 @@ public class VehicleEntity implements UpdateableEntity<VehicleEntity> {
         this.name = target.getName();
         this.description = target.getDescription();
         this.brand = target.getBrand();
+        this.engines = target.getEngines();
         this.segment = target.getSegment();
         this.setYear(target.getYear());
         this.setWeight(target.getWeight());
         this.setDoors(target.getDoors());
         this.setBasePrice(target.getBasePrice());
+        this.setMainImage(target.getMainImage());
     }
 
     @Override
