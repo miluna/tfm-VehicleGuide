@@ -33,7 +33,7 @@ public class SearchService {
         StringBuilder sql = new StringBuilder();
 
         // Prepare sql
-        String select = "SELECT A.id, A.main_image, A.name, A.year, A.base_price, A.segment, A.description, B.name AS brand_name ";
+        String select = "SELECT DISTINCT A.id, A.main_image, A.name, A.year, A.base_price, A.segment, A.description, B.name AS brand_name ";
         String tables =
                 "FROM vehicles A " +
                 "LEFT JOIN brands B " +
