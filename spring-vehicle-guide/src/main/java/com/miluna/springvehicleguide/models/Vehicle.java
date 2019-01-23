@@ -34,6 +34,8 @@ public class Vehicle {
 
     private Long basePrice;
 
+    private String mainImage;
+
     public Vehicle(){}
 
     public Vehicle(VehicleEntity entity){
@@ -52,6 +54,7 @@ public class Vehicle {
         this.doors = entity.getDoors();
         this.segment = entity.getSegment();
         this.basePrice = entity.getBasePrice();
+        this.mainImage = entity.getMainImage();
     }
 
     @Override

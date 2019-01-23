@@ -33,14 +33,14 @@ public class SearchService {
         StringBuilder sql = new StringBuilder();
 
         // Prepare sql
-        String select = "SELECT A.id, A.name, A.year, A.base_price, A.segment ";
+        String select = "SELECT DISTINCT A.id, A.main_image, A.name, A.year, A.base_price, A.segment, A.description, B.name AS brand_name ";
         String tables =
                 "FROM vehicles A " +
-                "INNER JOIN brands B " +
+                "LEFT JOIN brands B " +
                 "ON A.brand_id=B.id " +
                 "INNER JOIN vehicles_engines C  " +
                 "ON A.id=C.vehicle_entity_id " +
-                "LEFT JOIN engines D " +
+                "INNER JOIN engines D " +
                 "ON D.id=C.engines_id ";
         String clauses = getClauses(vehicleName, vehicleType, brand, minPrice, maxPrice, orderValue, order);
 
@@ -117,7 +117,7 @@ public class SearchService {
 
     private String getOrderValue(String orderValue){
         String value = null;
-        if (orderValue.equals("price")) value = "A.basePrice";
+        if (orderValue.equals("price")) value = "A.base_price";
         if (orderValue.equals("name")) value = "A.name";
         if (orderValue.equals("year")) value = "A.year";
         if (orderValue.equals("brand")) value = "B.name";

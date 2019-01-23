@@ -1,5 +1,6 @@
 package com.miluna.springvehicleguide.services;
 
+import com.google.gson.Gson;
 import com.miluna.springvehicleguide.entities.VehicleEntity;
 import com.miluna.springvehicleguide.models.Brand;
 import com.miluna.springvehicleguide.models.Engine;
@@ -11,11 +12,13 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service(value = "VehicleService")
 public class VehicleService implements CrudService<Vehicle> {
 
+    private static Logger LOG = Logger.getLogger(VehicleService.class.getName());
     private final BrandService brandService;
     private final EngineService engineService;
     private final VehicleRepository repository;
@@ -62,6 +65,7 @@ public class VehicleService implements CrudService<Vehicle> {
         v.setBrand(brand);
         v.setEngines(engines);
         VehicleEntity vehicleEntity = new VehicleEntity(v);
+        LOG.info("Saving: " + new Gson().toJson(vehicleEntity));
 
         Optional<VehicleEntity> found = repository.findById(id);
         if (found.isPresent()){
@@ -108,6 +112,7 @@ public class VehicleService implements CrudService<Vehicle> {
                 if (engine != null) filledEngines.add(engine);
             });
         }
+        LOG.info("Engines found: " + new Gson().toJson(filledEngines));
         return filledEngines;
     }
 }

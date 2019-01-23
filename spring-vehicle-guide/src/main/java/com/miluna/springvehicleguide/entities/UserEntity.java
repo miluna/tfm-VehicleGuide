@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class UserEntity implements UpdateableEntity<UserEntity> {
+public class UserEntity implements UpdateableEntity<User> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,7 +51,7 @@ public class UserEntity implements UpdateableEntity<UserEntity> {
     }
 
     @Override
-    public void updateProperties(UserEntity target) {
+    public void updateProperties(User target) {
         if (target.getPassword().equals(target.getPassword2())) {
             this.email = target.getEmail();
             this.password = new BCryptPasswordEncoder().encode(target.getPassword());
