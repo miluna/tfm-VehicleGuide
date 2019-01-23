@@ -9,9 +9,4 @@ import java.util.List;
 
 @Repository(value = "BrandRepository")
 public interface BrandRepository extends JpaRepository<BrandEntity, Long> {
-
-    List<BrandEntity> findAllByCountry(String country);
-
-    List<BrandEntity> findAllByYear(Date year);
-
 }

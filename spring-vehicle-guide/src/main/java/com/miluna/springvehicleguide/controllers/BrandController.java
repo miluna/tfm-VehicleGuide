@@ -1,11 +1,13 @@
 package com.miluna.springvehicleguide.controllers;
 
+import com.google.gson.Gson;
 import com.miluna.springvehicleguide.models.Brand;
 import com.miluna.springvehicleguide.models.Vehicle;
 import com.miluna.springvehicleguide.services.BrandService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Log
 @RestController(value = "BrandController")
 @Api(value = "Controller designed to add/retrieve/modify brands")
 public class BrandController implements CrudController<Brand> {
@@ -29,7 +32,7 @@ public class BrandController implements CrudController<Brand> {
     @ApiOperation(value = "Get all brands", response = List.class)
     @Override
     public ResponseEntity<List<Brand>> getAll() {
-
+        log.info("BrandController - GET ALL BRANDS");
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
@@ -38,7 +41,7 @@ public class BrandController implements CrudController<Brand> {
     @Override
     public ResponseEntity<Brand> createOne(
         @ApiParam(value = "Brand object Model.", required = true) @RequestBody Brand o) {
-
+        log.info("BrandController - CREATE ONE BRAND");
         return new ResponseEntity<>(service.createOne(o), HttpStatus.OK);
     }
 
@@ -47,7 +50,7 @@ public class BrandController implements CrudController<Brand> {
     @Override
     public ResponseEntity<Brand> getOne(
         @ApiParam(value = "Brand id", required = true) @PathVariable Long id) {
-
+        log.info("BrandController - GET ONE BRAND");
         Brand b = (id != null) ? service.findOne(id) : null;
         if (b == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else return new ResponseEntity<>(b, HttpStatus.OK);
@@ -59,7 +62,7 @@ public class BrandController implements CrudController<Brand> {
     public ResponseEntity<Brand> updateOne(
         @ApiParam(value = "Brand id", required = true) @PathVariable Long id, 
         @ApiParam(value = "Brand object Model.", required = true) @RequestBody Brand o) {
-
+        log.info("BrandController - UPDATE ONE BRAND");
         Brand b = (id != null) ? service.updateOne(id, o) : null;
         if (b == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else return new ResponseEntity<>(b, HttpStatus.OK);
@@ -70,7 +73,7 @@ public class BrandController implements CrudController<Brand> {
     @Override
     public ResponseEntity<HttpStatus> deleteOne(
         @ApiParam(value = "Brand id", required = true) @PathVariable Long id) {
-
+        log.info("BrandController - DELETE ONE BRAND");
         boolean result = service.deleteOne(id);
         if (result) return new ResponseEntity<>(HttpStatus.OK);
         else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -80,8 +83,10 @@ public class BrandController implements CrudController<Brand> {
     @ApiOperation(value = "Get all vehicles from a brand", response = List.class)
     public ResponseEntity<List<Vehicle>> getBrandVehicles(
         @ApiParam(value = "Brand id", required = true) @PathVariable Long id) {
-
-        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+        log.info("BrandController - GET ALL VEHICLES FROM A BRAND");
+        List<Vehicle> results = service.getBrandVehicles(id);
+        log.info("RESULTS: " + new Gson().toJson(results));
+        return new ResponseEntity<>(results, HttpStatus.OK);
     }
 
 }
