@@ -88,21 +88,13 @@ public class BrandService implements CrudService<Brand> {
                         "ON A.brand_id=B.id " +
                         "WHERE B.id=?";
 
-        RowMapper<VehicleEntity> rowmapper = ((resultSet, i) -> {
-            VehicleEntity v = new VehicleEntity();
+        RowMapper<Vehicle> rowmapper = ((resultSet, i) -> {
+            Vehicle v = new Vehicle();
             v.setId(resultSet.getLong("id"));
             v.setName(resultSet.getString("name"));
             return v;
         });
 
-        return template.query(sql, new Object[]{id}, rowmapper)
-                .stream()
-                .map(e -> {
-                    Vehicle v = new Vehicle();
-                    v.setId(e.getId());
-                    v.setName(e.getName());
-                    return v;
-                })
-                .collect(Collectors.toList());
+        return template.query(sql, new Object[]{id}, rowmapper);
     }
 }
