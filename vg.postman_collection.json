@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f336d4b4-b4a7-485c-a480-734cba716553",
+		"_postman_id": "3813488f-c6a1-41c8-8234-e37839a75a78",
 		"name": "vg",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -92,12 +92,12 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZW1vYWRtaW5AZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE1NDMxODA4MDAsImV4cCI6MTU0MzI2NzIwMH0.GUeVGTmtJK5xFZPiq3a7t7XB91pSWfx1kBMphzXq_bstqwq-MsJlLRe0NZ4JjEpSRUpQEfXkvLIjZQkEFYlfhg"
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZW1vYWRtaW5AZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE1NDY3NzI2MzgsImV4cCI6MTU0Njg1OTAzOH0.FGTtx3M1IM2wcaqIbxu2rDgtT9MPS7W7j4eFrvNynnnaXkHBV9B3GZxd760fnSOweHgC_o5R479ISSPA-e2zQg"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Ford\",\n\t\"country\": \"United States\",\n\t\"year\": 1903\n}"
+							"raw": "{\n\t\"name\": \"BMW\",\n\t\"country\": \"Germany\",\n\t\"year\": 1916\n}"
 						},
 						"url": {
 							"raw": "localhost:5000/brands",
@@ -127,12 +127,12 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZW1vYWRtaW5AZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE1NDMxODA4MDAsImV4cCI6MTU0MzI2NzIwMH0.GUeVGTmtJK5xFZPiq3a7t7XB91pSWfx1kBMphzXq_bstqwq-MsJlLRe0NZ4JjEpSRUpQEfXkvLIjZQkEFYlfhg"
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZW1vYWRtaW5AZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE1NDY3NzI2MzgsImV4cCI6MTU0Njg1OTAzOH0.FGTtx3M1IM2wcaqIbxu2rDgtT9MPS7W7j4eFrvNynnnaXkHBV9B3GZxd760fnSOweHgC_o5R479ISSPA-e2zQg"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"cylinders\": 3,\n\t\"displacement\": 1000,\n\t\"horsepower\": 125,\n\t\"hasTurbo\": true,\n\t\"type\": \"petrol\",\n\t\"pollution\": null,\n\t\"energyCertificate\": \"C\",\n\t\"autonomy\": \"800\"\n}"
+							"raw": "{\n\t\"cylinders\": 6,\n\t\"displacement\": 2993,\n\t\"horsepower\": 313,\n\t\"hasTurbo\": true,\n\t\"type\": \"diesel\",\n\t\"pollution\": null,\n\t\"energyCertificate\": \"C\",\n\t\"autonomy\": \"800\"\n}"
 						},
 						"url": {
 							"raw": "localhost:5000/engines",
@@ -403,13 +403,29 @@
 					"name": "PUT vehicle",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZW1vYWRtaW5AZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE1NDY3NzI2MzgsImV4cCI6MTU0Njg1OTAzOH0.FGTtx3M1IM2wcaqIbxu2rDgtT9MPS7W7j4eFrvNynnnaXkHBV9B3GZxd760fnSOweHgC_o5R479ISSPA-e2zQg",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": ""
+							"raw": "{\n    \"brand\": {\n        \"id\": 2\n    },\n    \"engines\": [\n    \t{\n    \t\t\"id\": 2\n    \t},\n    \t{\n    \t\t\"id\": 3\n    \t},\n    \t{\n    \t\t\"id\": 4\n    \t},\n    \t{\n    \t\t\"id\": 5\n    \t},\n    \t{\n    \t\t\"id\": 6\n    \t},\n    \t{\n    \t\t\"id\": 7\n    \t},\n    \t{\n    \t\t\"id\": 8\n    \t},\n    \t{\n    \t\t\"id\": 9\n    \t},\n    \t{\n    \t\t\"id\": 10\n    \t}, \n    \t{\n    \t\t\"id\": 11\n    \t}\n\t],\n    \"name\": \"3 Series\",\n    \"description\": \"BMW's most iconic vehicle\",\n    \"year\": 2018,\n    \"weight\": 1500,\n    \"doors\": 5,\n    \"segment\": \"D\",\n    \"basePrice\": 29950,\n    \"mainImage\": \"https://images0.autocasion.com/unsafe/origxorig/unoauto/07/1839/c5018ac32665e4bf0bc8d19c8e6aa4e7f58c47da.jpeg\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:5000/vehicles/1",
+							"raw": "http://localhost:5000/vehicles/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -417,7 +433,7 @@
 							"port": "5000",
 							"path": [
 								"vehicles",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -609,7 +625,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:5000/search?brand=ford&name=focus&minPrice=10000&maxPrice=15000&orderValue=basePrice&order=ASC",
+					"raw": "http://localhost:5000/search?orderValue=basePrice&order=ASC",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -621,19 +637,23 @@
 					"query": [
 						{
 							"key": "brand",
-							"value": "ford"
+							"value": "ford",
+							"disabled": true
 						},
 						{
 							"key": "name",
-							"value": "focus"
+							"value": "focus",
+							"disabled": true
 						},
 						{
 							"key": "minPrice",
-							"value": "10000"
+							"value": "10000",
+							"disabled": true
 						},
 						{
 							"key": "maxPrice",
-							"value": "15000"
+							"value": "15000",
+							"disabled": true
 						},
 						{
 							"key": "orderValue",
